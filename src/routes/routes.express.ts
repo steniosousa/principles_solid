@@ -5,9 +5,6 @@ const routes = Router()
 
 const createCostumer = new CreateCostumerController()
 
-type errorProps = {
-    message:string
-}
 routes.get('/costumer', async (req: any, res) => {
     const { clinicId, name, password, email, phone } = req
     try {

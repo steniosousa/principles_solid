@@ -1,7 +1,7 @@
-import { InsertCostumersProps } from "../../entities/insert.costumer";
+import { Costumer } from "../../entities/insert.costumer";
 
 export class CreateCostumerController{
-    async handle(data:InsertCostumersProps){
+    async handle(data:Costumer){
         try{
 
         }catch{
