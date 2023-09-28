@@ -1,4 +1,4 @@
-export interface createCostumerDto{
+export interface createCustomerDto{
     email:string;
     password:string;
     phone:string;
