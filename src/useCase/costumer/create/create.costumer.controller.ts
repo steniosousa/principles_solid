@@ -8,7 +8,7 @@ export class CreateCustomerController {
         const { clinicId, name, password, email, phone } = req.body
         const iMakeCustomerFindByEmila = new MakeCustomerFindByEmila()
         const iCustomerSave = new CustomerSave()
-        try{
+        try {
             const iCustomerUseCase = new CustomerUseCase(iMakeCustomerFindByEmila, iCustomerSave)
             const process = await iCustomerUseCase.execute({
                 clinicId,
@@ -17,13 +17,17 @@ export class CreateCustomerController {
                 password,
                 phone
             })
+            console.log(process)
             res.status(200).json(process)
 
-        }catch(err){
-            console.log(err)
-            res.status(400).json('')
+        } catch (error: unknown) {
+            let errorMessage = "Failed to do something exceptional";
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            res.status(400).json(errorMessage)
         }
-       
+
 
 
 

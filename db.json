@@ -2,8 +2,12 @@
   "Customers": [
     {
       "data": {
-        "email": "dayanee",
-        "id": "61d80731-352b-40b5-9d55-b2f028fd8fda"
+        "name": "stenio",
+        "password": "dayane123",
+        "email": "stensdio",
+        "phone": "(85)997777777",
+        "clinicId": "stenio",
+        "id": "f0cc4623-d21f-45b1-bb01-1b8776634532"
       },
       "id": 1
     }

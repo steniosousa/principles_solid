@@ -11,11 +11,11 @@ export class CustomerUseCase {
 
     async execute(data: createCustomerDto) {
         const CustomerExist = await this.CustomerRepository.findByEmail(data.email)
-        if(CustomerExist == undefined) return
         if (CustomerExist.length != 0) {
             throw new Error('Customer exists')
         }
         const newCustomer = new Customer(data)
         await this.saveCustomer.save(newCustomer)
+        return newCustomer
     }
 }
