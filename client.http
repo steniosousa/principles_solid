@@ -1,0 +1,10 @@
+POST http://localhost:3333/customer
+Content-Type: application/json
+
+{
+  "clinicId": "1",
+  "email": "Carlos@mail12.com",
+  "name": "Carlos Vinicius",
+  "password": "senha123",
+  "phone": "123321"
+}

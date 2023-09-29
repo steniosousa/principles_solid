@@ -1,9 +1,9 @@
 import { Router } from 'express'
-import { CreateCustomerController } from './useCase/costumer/create/create.costumer.controller'
+import { makeCreateCustomerController } from './factories/customer/makeCreateCustomerController'
 
 const routes = Router()
 
-const createCustomer = new CreateCustomerController()
-routes.post('/customer',createCustomer.execute)
+const customerController = makeCreateCustomerController()
+routes.post('/customer', (req, res) => customerController.execute(req, res))
 
 export { routes }
