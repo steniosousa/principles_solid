@@ -8,16 +8,6 @@ export class CreateCustomerController {
         const { clinicId, name, password, email, phone } = req.body
         const iMakeCustomerFindByEmila = new MakeCustomerFindByEmila()
         const iCustomerSave = new CustomerSave()
-        iCustomerSave.save({
-            clinicId,
-            email,
-            name,
-            password,
-            phone,
-        })
-
-        iMakeCustomerFindByEmila.findByEmail(email)
-
         try{
             const iCustomerUseCase = new CustomerUseCase(iMakeCustomerFindByEmila, iCustomerSave)
             const process = await iCustomerUseCase.execute({
@@ -27,12 +17,11 @@ export class CreateCustomerController {
                 password,
                 phone
             })
-            console.log(process)
             res.status(200).json(process)
 
         }catch(err){
             console.log(err)
-            res.status(400).json()
+            res.status(400).json('')
         }
        
 

@@ -4,6 +4,6 @@ import { CreateCustomerController } from './useCase/costumer/create/create.costu
 const routes = Router()
 
 const createCustomer = new CreateCustomerController()
-routes.get('/customer',createCustomer.execute)
+routes.post('/customer',createCustomer.execute)
 
 export { routes }
