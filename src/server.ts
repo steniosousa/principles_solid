@@ -6,10 +6,7 @@ const app = express()
 app.use(express.json())
 app.use(routes)
 
-app.listen(3333, () =>{
-    console.log('Project running in port 3333')
+const port = process.env.PORT || 3333
+app.listen(port, () =>{
+    console.log(`Project running in port ${port}`)
 })
-
-export {app}
-
-

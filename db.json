@@ -1,15 +1,20 @@
 {
   "Customers": [
     {
-      "data": {
-        "name": "stenio",
-        "password": "dayane123",
-        "email": "stensdio",
-        "phone": "(85)997777777",
-        "clinicId": "stenio",
-        "id": "f0cc4623-d21f-45b1-bb01-1b8776634532"
-      },
-      "id": 1
+      "id": "bc6811e9-7d03-45fe-9ae6-cbca8b71a8cd",
+      "clinicId": "1",
+      "email": "Carlos@mail11.com",
+      "name": "Carlos Vinicius",
+      "password": "senha123",
+      "phone": "123321"
+    },
+    {
+      "id": "446a398a-7229-46be-a9ea-37a0ab429621",
+      "clinicId": "1",
+      "email": "Carlos@mail12.com",
+      "name": "Carlos Vinicius",
+      "password": "senha123",
+      "phone": "123321"
     }
   ]
 }
