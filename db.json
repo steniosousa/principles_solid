@@ -1,14 +1,10 @@
 {
   "Customers": [
     {
-      "data": {
-        "name": "stenio",
-        "password": "dayane123",
-        "email": "stensdio",
-        "phone": "(85)997777777",
-        "clinicId": "stenio",
-        "id": "f0cc4623-d21f-45b1-bb01-1b8776634532"
-      },
+      "email": "stenidfo",
+      "clinicId": "stenio",
+      "name": "stenio",
+      "phone": "(85)997777777",
       "id": 1
     }
   ]
