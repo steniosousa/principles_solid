@@ -1,7 +1,6 @@
 import { Customer } from "../../../entities/costumer"
 import { FindByEmailRepositories } from "../../../respositories/costumer/costumer.repository"
 import { saveCustomer } from "../../../respositories/costumer/costumer.save.repository"
-import { createCustomerDto } from "./create.costumer.dto"
 
 export class CustomerUseCase {
     constructor(
@@ -9,7 +8,7 @@ export class CustomerUseCase {
         private saveCustomer: saveCustomer
     ) { }
 
-    async execute(customer: createCustomerDto) {
+    async execute(customer:Customer) {
         const CustomerExist = await this.CustomerRepository.findByEmail(customer.email)
         if (CustomerExist) {
             throw new Error('Customer exists')

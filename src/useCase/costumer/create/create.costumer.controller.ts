@@ -4,9 +4,9 @@ import { CustomerUseCase } from './create.costumer.useCase';
 export class CreateCustomerController {
     constructor(private readonly service: CustomerUseCase) { }
     async execute(req: Request, res: Response): Promise<void> {
-        const { clinicId, name, password, email, phone } = req.body
-
         try {
+            const { clinicId, name, password, email, phone } = req.body
+
             const iCustomerUseCase = await this.service.execute({
                 clinicId,
                 email,
@@ -16,7 +16,7 @@ export class CreateCustomerController {
             })
             res.status(200).json(iCustomerUseCase)
         } catch (error: unknown) {
-            console.log(error)
+           
             let errorMessage = "Failed to do something exceptional";
             if (error instanceof Error) {
                 errorMessage = error.message;
