@@ -13,13 +13,5 @@ export class Customer {
         if(!id){
             this.id = uuidv4();
         }
-
-
-        // this.id = props.id,
-        // this.name = props.name,
-        // this.email = props.email,
-        // this.password = props.password
-        // this.clinicId = props.clinicId,
-        // this.phone = props.phone
     }
 }

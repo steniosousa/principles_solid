@@ -64,10 +64,12 @@
     "unpipe": "^1.0.0",
     "utils-merge": "^1.0.1",
     "uuid": "^9.0.1",
-    "vary": "^1.1.2"
+    "vary": "^1.1.2",
+    "zod": "^3.22.2",
+    "zod-error": "^1.5.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "vitest --config ./vitest.config.ts",
     "start": "ts-node-dev --respawn --transpile-only  src/server.ts",
     "json": "json-server --watch db.json"
   },
@@ -79,7 +81,8 @@
     "@types/uuid": "^9.0.4",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.2.2"
+    "typescript": "^5.2.2",
+    "vitest": "^0.34.6"
   },
   "description": ""
 }
