@@ -7,7 +7,8 @@ test('Create a customer', () => {
         email: 'steniosousaf@gmail.com',
         name: 'stenio',
         password: 'stenio123',
-        phone: '9877893076'
+        phone: '9877893076',
+        profileImg:''
     })
 
     expect(iCustomer).toBeInstanceOf(Customer)
@@ -17,5 +18,6 @@ test('Create a customer', () => {
     expect(iCustomer.clinicId).toEqual('oi')
     expect(iCustomer.password).toEqual('stenio123')
     expect(iCustomer.phone).toEqual('9877893076')
+    expect(iCustomer.profileImg).toEqual('')
 })
 
