@@ -6,12 +6,12 @@ export class Customer {
     public email: string = '';
     public phone: string = '';
     public clinicId: string = '';
-    public profileImg:string = ''
+    public profileImg: string = ''
 
 
     constructor(props: Omit<Customer, 'id'>, id?: string) {
-        Object.assign(this,props);
-        if(!id){
+        Object.assign(this, props);
+        if (!id) {
             this.id = uuidv4();
         }
     }

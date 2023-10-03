@@ -6,8 +6,8 @@ export class CreateCustomerController {
     async execute(req: Request, res: Response): Promise<void> {
         try {
             const { clinicId, name, password, email, phone } = req.body
-            const profilePicture = req.body.profileImg 
-            
+            const profilePicture = req.body.profileImg
+
             const iCustomerUseCase = await this.service.execute({
                 clinicId,
                 email,
@@ -18,7 +18,7 @@ export class CreateCustomerController {
             })
             res.status(200).json(iCustomerUseCase)
         } catch (error: unknown) {
-           
+
             let errorMessage = "Failed to do something exceptional";
             if (error instanceof Error) {
                 errorMessage = error.message;

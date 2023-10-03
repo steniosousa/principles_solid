@@ -3,7 +3,7 @@ import { ZodError, ZodSchema } from "zod";
 import { ErrorMessageOptions, generateErrorMessage } from 'zod-error';
 
 export function schemaValidator(schema: ZodSchema) {
-    return (req: Request, res:Response, next:NextFunction) => {
+    return (req: Request, res: Response, next: NextFunction) => {
         const options: ErrorMessageOptions = {
             message: {
                 enabled: true,
@@ -15,7 +15,7 @@ export function schemaValidator(schema: ZodSchema) {
         } catch (error) {
             if (error instanceof ZodError) {
                 const errorMessage = generateErrorMessage(error.issues, options);
-                res.status(400).json( errorMessage)
+                res.status(400).json(errorMessage)
             }
         }
     }

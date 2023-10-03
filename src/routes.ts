@@ -9,6 +9,6 @@ const routes = Router()
 
 const iLogin = LoginFactore()
 const createCustomer = MakeCustomerFactore()
-routes.post('/customer', schemaValidator(createCustomerSchema), (req:Request,res:Response) => createCustomer.execute(req,res))
-routes.get('/login',schemaValidator(loginSchema),(req:Request, res:Response) => iLogin.execute(req,res))
+routes.post('/customer', schemaValidator(createCustomerSchema), (req: Request, res: Response) => createCustomer.execute(req, res))
+routes.get('/login', schemaValidator(loginSchema), (req: Request, res: Response) => iLogin.execute(req, res))
 export { routes }

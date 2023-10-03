@@ -8,7 +8,7 @@ test('Create a customer', () => {
         name: 'stenio',
         password: 'stenio123',
         phone: '9877893076',
-        profileImg:''
+        profileImg: ''
     })
 
     expect(iCustomer).toBeInstanceOf(Customer)

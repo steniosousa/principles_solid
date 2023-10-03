@@ -1,20 +1,22 @@
-import { MakeLogin } from "../../respositories/authentication/make.auth";
-import { FindByEmailRepositories } from "../../respositories/costumer/costumer.repository";
+import { LoginContract } from "../../respositories/contracts/login/login.contract";
+import { FindByEmailRepositories } from "../../respositories/contracts/costumer/costumer.repository";
+import { JwtContract } from "../../respositories/contracts/login/jwt.contract";
 
 export class LoginUseCase {
     constructor(
-        private readonly login:MakeLogin,
-        private readonly findByEmail:FindByEmailRepositories
-        ){}
-    async execute(password:string, email:string){
-        console.log(password,email)
+        private readonly login: LoginContract,
+        private readonly findByEmail: FindByEmailRepositories,
+        private readonly jwt: JwtContract
+
+    ) { }
+    async execute(password: string, email: string) {
         const accountExist = await this.findByEmail.findByEmail(email)
-        
-        const customerLogin = await this.login.login(password,email)
-        if (!accountExist || !customerLogin) {
-            throw new Error('Email ou senha inválidos')
-        }
-        
-        return customerLogin
+        if (!accountExist) throw new Error('Email ou senha inválidos')
+
+        const customerLogin = await this.login.login(accountExist, password)
+        if (!customerLogin) throw new Error("Email ou senha inválidos")
+
+        const webToken = await this.jwt.sign(customerLogin.id ?? '')
+        return webToken
     }
 }
