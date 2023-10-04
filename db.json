@@ -1,12 +1,3 @@
 {
-  "Customers": [
-    {
-      "email": "stenio@gmail.com",
-      "clinicId": "stenio",
-      "name": "stenio",
-      "phone": "(85)997777777",
-      "password": "$2a$10$tToVB4A/gvaFI8o4jdbRtOmZNPgK0abaqEgTBjnSYa9AibG6vxPKm",
-      "id": 1
-    }
-  ]
+  "Customers": []
 }

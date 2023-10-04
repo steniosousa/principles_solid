@@ -9,7 +9,7 @@ export class Customer {
     public profileImg: string = ''
 
 
-    constructor(props: Omit<Customer, 'id'>, id?: string) {
+    constructor(props: Customer, id?: string) {
         Object.assign(this, props);
         if (!id) {
             this.id = uuidv4();

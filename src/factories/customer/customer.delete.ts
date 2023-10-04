@@ -1,0 +1,11 @@
+import { CustomerDeletion } from "../../respositories/implementation/customer.deletion";
+import { CustomerDeletionController } from "../../useCase/costumer/deletion/customer.deletion.controller";
+import { CustomerDeletionUseCase } from "../../useCase/costumer/deletion/customer.deletion.useCase";
+
+export function DeleteCustomer(){
+    const iFindById = new CustomerDeletion()
+    const iUseCase = new CustomerDeletionUseCase(iFindById)
+    const iController = new CustomerDeletionController(iUseCase)
+
+    return iController
+}

@@ -15,8 +15,7 @@ export class LoginUseCase {
 
         const customerLogin = await this.login.login(accountExist, password)
         if (!customerLogin) throw new Error("Email ou senha inválidos")
-
-        const webToken = await this.jwt.sign(customerLogin.id ?? '')
+        const webToken = await this.jwt.sign(customerLogin.id as string)
         return webToken
     }
 }

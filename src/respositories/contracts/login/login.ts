@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Customer } from "../../../entities/costumer";
 import bcrypt from 'bcryptjs'
 import { LoginContract } from "./login.contract";
@@ -15,9 +14,9 @@ export class Login implements LoginContract {
             name: customer.email,
             password: customer.password,
             phone: customer.phone,
-            profileImg: customer.profileImg
-        })
-
+            profileImg: customer.profileImg,
+            id:customer.id
+        },customer.id)
 
 
         return accountExist
