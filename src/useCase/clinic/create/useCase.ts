@@ -46,7 +46,6 @@ export class ClinicUseCase {
 
            
             const validateCnpj = await this.ivalidateCnpj.validateCnpjInterface(cnpj)
-            console.log(validateCnpj)
             if(!validateCnpj) throw new Error('CNPJ not found')
             
             const address = await this.iSaveAddress.saveAddress(newAddress)
@@ -66,9 +65,12 @@ export class ClinicUseCase {
                 cnpj: clinic.cnpj
             }, clinic.id)
 
-        } catch (error) {
-
-            throw new Error('Failed to save clinic')
+        } catch (error){
+            let errorMessage = "Failed to do something exceptional";
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            throw new Error(errorMessage)
         }
     }
 }

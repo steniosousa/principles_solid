@@ -9,7 +9,11 @@ export class clinicController {
             const sucess = await this.iClinicUseCase.execute(req)
             res.status(200).json(sucess)
         } catch (error){
-            res.status(400).send('Unable to register the clinic')
+            let errorMessage = "Failed to do something exceptional";
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            res.status(400).json(errorMessage)
         }
     }
 }

@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { CustomerDeletionUseCase } from "./customer.deletion.useCase";
+import { CustomerDeletionUseCase } from "./useCase";
 
 export class CustomerDeletionController {
     constructor(private readonly useCase: CustomerDeletionUseCase) { }

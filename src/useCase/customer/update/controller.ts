@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { CustomerUpdateUseCase } from "./customer.update.useCase";
+import { CustomerUpdateUseCase } from "./useCase";
 
 export class CustomerUpdateController {
     constructor(private readonly updateUseCase: CustomerUpdateUseCase) { }

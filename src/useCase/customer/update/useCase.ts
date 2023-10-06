@@ -9,7 +9,7 @@ export class CustomerUpdateUseCase {
     async execute(customerId: string, newDatas: Customer) {
         try {
             const foundCustomer = await this.findById.Find(customerId)
-            if (!foundCustomer?.id) throw new Error('Customer not found')
+            if (!foundCustomer) throw new Error('Customer not found')
             const customerEdit = await this.iUpdate.update(foundCustomer.id, newDatas)
             return customerEdit
         }

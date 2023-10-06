@@ -1,4 +1,4 @@
-import { ClinicCreateImplementation } from "../../respositories/implementation/clinic/clinic.create";
+import { ClinicCreateImplementation } from "../../respositories/implementation/clinic/create";
 import { clinicController } from "../../useCase/clinic/create/controller";
 import { ClinicUseCase } from "../../useCase/clinic/create/useCase";
 

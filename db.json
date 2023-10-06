@@ -1,5 +1,31 @@
 {
-  "Customers": [],
-  "Clinic": [],
-  "Address": []
+  "Customers": [
+    {
+      "email": "steniosousaf@gmail.com",
+      "clinicId": "0912737",
+      "name": "Stênio",
+      "phone": "98890",
+      "password": "$2a$10$2Jtf8E9gQaVHEY.7FF9hGeUySU2iUUbrVYoKXFdkhNfaPF5Bw0TxC",
+      "id": "ad00ae7a-a1f5-4af9-b76a-e50cb6914987"
+    }
+  ],
+  "Clinic": [
+    {
+      "adressId": "78873c10-3938-4e4e-a31e-8ab15e7fc0e3",
+      "name": "Stênio",
+      "cnpj": "96971388000147",
+      "id": "08bafbdf-e468-4a06-805d-d772bee1ea46"
+    }
+  ],
+  "Address": [
+    {
+      "cep": "60110-000",
+      "city": "Fortaleza",
+      "country": "Brazil",
+      "district": "Brazil",
+      "number": 234,
+      "street": "rua 2",
+      "id": "78873c10-3938-4e4e-a31e-8ab15e7fc0e3"
+    }
+  ]
 }

@@ -1,6 +1,6 @@
 import { JsonServerCreateCustomer } from "../../respositories/implementation/customer/json.server.customer";
-import { CreateCustomerController } from "../../useCase/customer/create/create.costumer.controller";
-import { CustomerUseCase } from "../../useCase/customer/create/create.costumer.useCase";
+import { CreateCustomerController } from "../../useCase/customer/create/controller";
+import { CustomerUseCase } from "../../useCase/customer/create/useCase";
 
 export function MakeCustomerFactore() {
     const iJsonServerCreateCustomer = new JsonServerCreateCustomer()
