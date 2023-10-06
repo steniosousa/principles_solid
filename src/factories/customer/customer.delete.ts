@@ -1,4 +1,4 @@
-import { CustomerDeletion } from "../../respositories/implementation/customer.deletion";
+import { CustomerDeletion } from "../../respositories/implementation/customer/customer.deletion";
 import { CustomerDeletionController } from "../../useCase/costumer/deletion/customer.deletion.controller";
 import { CustomerDeletionUseCase } from "../../useCase/costumer/deletion/customer.deletion.useCase";
 

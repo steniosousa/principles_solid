@@ -8,8 +8,8 @@ export class CustomerDeletionUseCase {
         try{
             await this.findById.Find(userId as string)
 
-        }catch(error){
-            console.log(userId)
+        }catch{
+            throw new Error('Deletion Failed')
         }
     }
 }

@@ -10,8 +10,7 @@ export class CustomerDeletionController {
             res.status(200).send('Successful deletion')
         }
         catch {
-
-            res.status(400).send('Deletion failed')
+            res.status(400).send('Failed deletion')
 
         }
     }

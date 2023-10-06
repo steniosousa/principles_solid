@@ -1,4 +1,4 @@
-import { JsonServerCreateCustomer } from "../../respositories/implementation/json.server.customer";
+import { JsonServerCreateCustomer } from "../../respositories/implementation/customer/json.server.customer";
 import { Login } from "../../respositories/contracts/login/login";
 import { loginController } from "../../useCase/login/login.controller";
 import { LoginUseCase } from "../../useCase/login/login.useCase";
