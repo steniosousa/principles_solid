@@ -14,7 +14,6 @@ export class CreateCustomerController {
                 name,
                 password,
                 phone,
-                profileImg: profilePicture ?? ''
             })
             res.status(200).json(iCustomerUseCase)
         } catch (error: unknown) {

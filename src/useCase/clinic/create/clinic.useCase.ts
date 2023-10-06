@@ -6,6 +6,7 @@ import { clinicSave } from "../../../respositories/contracts/clinic/clinic.creat
 import { Address } from "../../../entities/address";
 import { Clinic } from "../../../entities/clinic";
 import { ValidateCep } from "../../../respositories/contracts/address/address.valid.cep";
+import { validateCnpj } from "../../../respositories/contracts/clinic/validate.cnpj";
 
 export class ClinicUseCase {
     constructor(
@@ -13,12 +14,13 @@ export class ClinicUseCase {
         private readonly iFindByCep: findAddress,
         private readonly iSaveAddress: addressSave,
         private readonly iclinicSave: clinicSave,
-        private readonly ivalidateCep: ValidateCep
+        private readonly ivalidateCep: ValidateCep,
+        private readonly ivalidateCnpj: validateCnpj
     ) { }
 
     async execute(req: Request) {
         try {
-            const { name, cep, street, number, district, city, country } = req.body
+            const { name, cep, street, number, district, city, country, cnpj } = req.body
 
 
             const clinicAlreadyExist = await this.iFindByName.findClinic(name)
@@ -40,24 +42,32 @@ export class ClinicUseCase {
                 street,
             })
             const validateCep = await this.ivalidateCep.validate(newAddress.cep)
-            if (!validateCep || validateCep) throw new Error('CEP not found in the BrasilAPI database')
+            if (!validateCep) throw new Error('CEP not found')
 
+           
+            const validateCnpj = await this.ivalidateCnpj.validateCnpjInterface(cnpj)
+            console.log(validateCnpj)
+            if(!validateCnpj) throw new Error('CNPJ not found')
+            
             const address = await this.iSaveAddress.saveAddress(newAddress)
 
             if (!address) throw new Error('Unable to save address')
 
             const newClinic = new Clinic({
                 adressId: address.id as string,
-                name
+                name,
+                cnpj
             })
             const clinic = await this.iclinicSave.save(newClinic)
             return new Clinic({
                 adressId: clinic.adressId,
                 name: clinic.name,
-                id: clinic.id
+                id: clinic.id,
+                cnpj: clinic.cnpj
             }, clinic.id)
 
-        } catch {
+        } catch (error) {
+
             throw new Error('Failed to save clinic')
         }
     }

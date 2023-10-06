@@ -6,7 +6,6 @@ export class Customer {
     public email: string = '';
     public phone: string = '';
     public clinicId: string = '';
-    public profileImg: string = ''
 
 
     constructor(props: Customer, id?: string) {

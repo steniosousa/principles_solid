@@ -38,7 +38,9 @@ routes.patch('/customer', schemaValidator(updateCustomerSchema), (req: any, res:
 routes.post('/clinic', schemaValidator(clinicCreateDTO),(req, res) => createClinic.execute(req,res))
 
 
-routes.post('/address/validate',schemaValidator(addressValidateSchema),(req,res) => validateCep.execute(req,res))
+//routes for address
+
+routes.post('/address/validate-cep',schemaValidator(addressValidateSchema),(req,res) => validateCep.execute(req,res))
 
 
 export { routes }

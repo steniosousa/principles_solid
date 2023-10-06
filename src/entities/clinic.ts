@@ -4,6 +4,7 @@ export class Clinic {
     public readonly id?: string
     public name: string = ''
     public adressId: string = ''
+    public cnpj:string = ''
 
     constructor(props: Clinic, id?: string) {
         Object.assign(this, props)

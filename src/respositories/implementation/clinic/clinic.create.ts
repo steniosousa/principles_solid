@@ -7,8 +7,9 @@ import { Clinic } from "../../../entities/clinic";
 import { addressSave } from "../../contracts/address/address.create";
 import cep from 'cep-promise'
 import { ValidateCep } from "../../contracts/address/address.valid.cep";
-
-export class ClinicCreateImplementation implements findAddress, clinicSave, findByName, addressSave, ValidateCep {
+import { cnpj } from 'cpf-cnpj-validator';
+import { validateCnpj } from "../../contracts/clinic/validate.cnpj";
+export class ClinicCreateImplementation implements findAddress, clinicSave, findByName, addressSave, ValidateCep, validateCnpj {
 
     async findAddress(cep: string, street: string, number: number): Promise<Address | null> {
         try {
@@ -51,23 +52,31 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
     async validate(clinicCep: string): Promise<boolean> {
         try {
             const returnCep = await cep(clinicCep)
-            console.log(returnCep)
             return true
         }
-        catch(error) {
+        catch (error) {
             return false
         }
     }
+
+    async validateCnpjInterface(cnpjRe: string): Promise<any> {
+        const validate = cnpj.isValid(cnpjRe);
+        return validate
+    }
+
+
 
     async save(clinic: Clinic): Promise<Clinic> {
         try {
             const newClinic = new Clinic({
                 adressId: clinic.adressId,
                 name: clinic.name,
+                cnpj: clinic.cnpj
             })
             const newClinicSave = await axios.post(`${process.env.DATABASE_JSON_SERVER}/Clinic/`, {
                 adressId: newClinic.adressId,
                 name: newClinic.name,
+                cnpj:newClinic.cnpj,
                 id: newClinic.id
             })
             const returnNewClinic: Clinic = newClinicSave.data
@@ -106,6 +115,8 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
         }
 
     }
+
+
 
 
 }
