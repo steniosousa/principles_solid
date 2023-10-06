@@ -19,12 +19,12 @@
   ],
   "Address": [
     {
-      "cep": "60110-000",
+      "cep": "60110000",
       "city": "Fortaleza",
-      "country": "Brazil",
-      "district": "Brazil",
+      "country": "África",
+      "district": "Messejana",
       "number": 234,
-      "street": "rua 2",
+      "street": "rua 135",
       "id": "78873c10-3938-4e4e-a31e-8ab15e7fc0e3"
     }
   ]

@@ -1,11 +1,11 @@
 import { Request } from "express";
-import { findAddress } from "../../../respositories/contracts/address/address.find";
+import { findAddress } from "../../../respositories/contracts/address/find";
 import { findByName } from "../../../respositories/contracts/clinic/findByName";
-import { addressSave } from "../../../respositories/contracts/address/address.create";
+import { addressSave } from "../../../respositories/contracts/address/create";
 import { clinicSave } from "../../../respositories/contracts/clinic/create";
 import { Address } from "../../../entities/address";
 import { Clinic } from "../../../entities/clinic";
-import { ValidateCep } from "../../../respositories/contracts/address/address.valid.cep";
+import { ValidateCep } from "../../../respositories/contracts/address/valid.cep";
 import { validateCnpj } from "../../../respositories/contracts/clinic/validate.cnpj";
 
 export class ClinicUseCase {

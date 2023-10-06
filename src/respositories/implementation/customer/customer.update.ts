@@ -5,7 +5,7 @@ import { Customer } from "../../../entities/costumer";
 
 export class CustomerUpdate implements customerUpdate, FindById {
     async Find(customerId: string): Promise<null | Customer> {
-        try{
+        try {
             const response = await axios.get(`${process.env.DATABASE_JSON_SERVER}/Customers/${customerId}`)
             const customerFound: Customer = response.data
             if (!customerFound) {
@@ -17,14 +17,13 @@ export class CustomerUpdate implements customerUpdate, FindById {
                 name: customerFound.name,
                 password: customerFound.password,
                 phone: customerFound.phone,
-                profileImg: customerFound.profileImg,
                 id: customerFound.id
-            },customerFound.id)
-    
-    
+            }, customerFound.id)
+
+
             return returnCustomer
 
-        }catch{
+        } catch {
             throw new Error('failure to find customer')
         }
     }

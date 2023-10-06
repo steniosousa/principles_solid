@@ -1,4 +1,4 @@
-import { ValidateCep } from "../../../respositories/contracts/address/address.valid.cep";
+import { ValidateCep } from "../../../respositories/contracts/address/valid.cep";
 
 export class addressValidateUseCase {
     constructor(private readonly ivalidateCep: ValidateCep) { }

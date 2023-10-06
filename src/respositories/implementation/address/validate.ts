@@ -1,5 +1,5 @@
 import cep from "cep-promise";
-import { ValidateCep } from "../../contracts/address/address.valid.cep";
+import { ValidateCep } from "../../contracts/address/valid.cep";
 
 export class AddressValidade implements ValidateCep{
     async validate(cepValidate: string): Promise<boolean | any> {

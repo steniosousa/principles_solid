@@ -1,12 +1,12 @@
 import axios from "axios";
 import { Address } from "../../../entities/address";
-import { findAddress } from "../../contracts/address/address.find";
+import { findAddress } from "../../contracts/address/find";
 import { clinicSave } from "../../contracts/clinic/create";
 import { findByName } from "../../contracts/clinic/findByName";
 import { Clinic } from "../../../entities/clinic";
-import { addressSave } from "../../contracts/address/address.create";
+import { addressSave } from "../../contracts/address/create";
 import cep from 'cep-promise'
-import { ValidateCep } from "../../contracts/address/address.valid.cep";
+import { ValidateCep } from "../../contracts/address/valid.cep";
 import { cnpj } from 'cpf-cnpj-validator';
 import { validateCnpj } from "../../contracts/clinic/validate.cnpj";
 export class ClinicCreateImplementation implements findAddress, clinicSave, findByName, addressSave, ValidateCep, validateCnpj {

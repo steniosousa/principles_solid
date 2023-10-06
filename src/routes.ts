@@ -11,9 +11,11 @@ import { updateCustomerSchema } from './useCase/customer/update/dto'
 import { ClinicCreate } from './factories/clinic/create'
 import { clinicCreateDTO } from './useCase/clinic/create/dto'
 import { AddressValidate } from './factories/address/address.validate'
-import { addressValidateSchema } from './useCase/address/validate/address.validate.dto'
 import { DeleteClinic } from './factories/clinic/delete'
 import { deleteClinicSchema } from './useCase/clinic/delete/dto'
+import { addressValidateSchema } from './useCase/address/validate/address.validate.dto'
+import { updateAddress } from './factories/address/update'
+import { updateAddressSchema } from './useCase/address/update/dto'
 
 const routes = Router()
 
@@ -26,6 +28,8 @@ const updateCustomer = UpdateCustomer()
 const createClinic = ClinicCreate()
 const deleteClinic = DeleteClinic()
 
+
+const UpdateAddress = updateAddress()
 const validateCep = AddressValidate()
 
 routes.post('/login', schemaValidator(loginSchema), (req: Request, res: Response) => iLogin.execute(req, res))
@@ -42,7 +46,7 @@ routes.post('/clinic',(req: any, res: Response, next: NextFunction) => AuthMiddl
 routes.delete('/clinic',(req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),schemaValidator(deleteClinicSchema), (req,res) => deleteClinic.execute(req,res))
 
 //routes for address
-
+routes.patch('/address',(req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),schemaValidator(updateAddressSchema),(req,res)=>UpdateAddress.execute(req,res))
 routes.post('/address/validate-cep',(req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),schemaValidator(addressValidateSchema),(req,res) => validateCep.execute(req,res))
 
 

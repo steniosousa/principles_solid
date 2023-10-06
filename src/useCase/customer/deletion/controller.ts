@@ -9,9 +9,13 @@ export class CustomerDeletionController {
             await this.useCase.execute(req.user.id)
             res.status(200).send('Successful deletion')
         }
-        catch {
-            res.status(400).send('Failed deletion')
+        catch (error: unknown) {
 
+            let errorMessage = "Failed to do something exceptional";
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            res.status(400).json(errorMessage)
         }
     }
 }

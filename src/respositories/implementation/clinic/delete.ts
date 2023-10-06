@@ -8,7 +8,6 @@ export class deleteClinicImplementation implements findById, deleteClinic {
         const search = await axios.get(`${process.env.DATABASE_JSON_SERVER}/Clinic/${id}`)
         const response: Clinic = search.data
 
-        console.log(search)
         return response
     }
 

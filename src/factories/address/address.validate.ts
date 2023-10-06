@@ -1,4 +1,4 @@
-import { AddressValidade } from "../../respositories/implementation/address/address.validate";
+import { AddressValidade } from "../../respositories/implementation/address/validate";
 import { addressValidadeController } from "../../useCase/address/validate/address.validate.controller";
 import { addressValidateUseCase } from "../../useCase/address/validate/address.validate.useCase";
 

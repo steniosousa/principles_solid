@@ -14,8 +14,13 @@ export class CustomerUpdateController {
             }
             res.status(200).send(responseEdit)
         }
-        catch (error) {
-            res.status(400).send('Update fail')
+        catch (error: unknown) {
+
+            let errorMessage = "Failed to do something exceptional";
+            if (error instanceof Error) {
+                errorMessage = error.message;
+            }
+            res.status(400).json(errorMessage)
         }
     }
 }
