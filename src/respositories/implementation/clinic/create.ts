@@ -1,8 +1,8 @@
 import axios from "axios";
 import { Address } from "../../../entities/address";
 import { findAddress } from "../../contracts/address/address.find";
-import { clinicSave } from "../../contracts/clinic/clinic.create";
-import { findByName } from "../../contracts/clinic/clinic.find.name";
+import { clinicSave } from "../../contracts/clinic/create";
+import { findByName } from "../../contracts/clinic/findByName";
 import { Clinic } from "../../../entities/clinic";
 import { addressSave } from "../../contracts/address/address.create";
 import cep from 'cep-promise'

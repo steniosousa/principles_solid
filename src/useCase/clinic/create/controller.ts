@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { ClinicUseCase } from "./clinic.useCase";
+import { ClinicUseCase } from "./useCase";
 
 export class clinicController {
     constructor(private readonly iClinicUseCase: ClinicUseCase) { }

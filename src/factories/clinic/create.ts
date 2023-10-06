@@ -1,6 +1,6 @@
 import { ClinicCreateImplementation } from "../../respositories/implementation/clinic/clinic.create";
-import { clinicController } from "../../useCase/clinic/create/clinic.controller";
-import { ClinicUseCase } from "../../useCase/clinic/create/clinic.useCase";
+import { clinicController } from "../../useCase/clinic/create/controller";
+import { ClinicUseCase } from "../../useCase/clinic/create/useCase";
 
 export function ClinicCreate(){
     const iClinicCreateImplementation = new ClinicCreateImplementation()

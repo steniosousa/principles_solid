@@ -1,8 +1,8 @@
 import { Request } from "express";
 import { findAddress } from "../../../respositories/contracts/address/address.find";
-import { findByName } from "../../../respositories/contracts/clinic/clinic.find.name";
+import { findByName } from "../../../respositories/contracts/clinic/findByName";
 import { addressSave } from "../../../respositories/contracts/address/address.create";
-import { clinicSave } from "../../../respositories/contracts/clinic/clinic.create";
+import { clinicSave } from "../../../respositories/contracts/clinic/create";
 import { Address } from "../../../entities/address";
 import { Clinic } from "../../../entities/clinic";
 import { ValidateCep } from "../../../respositories/contracts/address/address.valid.cep";
