@@ -1,6 +1,6 @@
 import axios from "axios";
-import { FindById } from "../../contracts/costumer/customer.FindById";
-import { customerUpdate } from "../../contracts/costumer/customer.update";
+import { FindById } from "../../contracts/customer/customer.FindById";
+import { customerUpdate } from "../../contracts/customer/customer.update";
 import { Customer } from "../../../entities/costumer";
 
 export class CustomerUpdate implements customerUpdate, FindById {

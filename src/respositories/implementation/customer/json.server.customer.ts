@@ -1,7 +1,7 @@
 import { Customer } from "../../../entities/costumer";
 import { default as axios } from 'axios'
-import { saveCustomer } from "../../contracts/costumer/costumer.save.repository";
-import { FindByEmailRepositories } from "../../contracts/costumer/costumer.repository";
+import { saveCustomer } from "../../contracts/customer/costumer.save.repository";
+import { FindByEmailRepositories } from "../../contracts/customer/costumer.repository";
 import bcrypt from 'bcryptjs'
 
 export class JsonServerCreateCustomer implements saveCustomer, FindByEmailRepositories {

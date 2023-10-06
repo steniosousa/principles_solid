@@ -1,5 +1,5 @@
 import { LoginContract } from "../../respositories/contracts/login/login.contract";
-import { FindByEmailRepositories } from "../../respositories/contracts/costumer/costumer.repository";
+import { FindByEmailRepositories } from "../../respositories/contracts/customer/costumer.repository";
 import { JwtContract } from "../../respositories/contracts/login/jwt.contract";
 
 export class LoginUseCase {

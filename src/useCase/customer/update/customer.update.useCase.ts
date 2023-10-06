@@ -1,6 +1,6 @@
 import { Customer } from "../../../entities/costumer";
-import { FindById } from "../../../respositories/contracts/costumer/customer.FindById";
-import { customerUpdate } from "../../../respositories/contracts/costumer/customer.update";
+import { FindById } from "../../../respositories/contracts/customer/customer.FindById";
+import { customerUpdate } from "../../../respositories/contracts/customer/customer.update";
 
 export class CustomerUpdateUseCase {
     constructor(private readonly iUpdate: customerUpdate,

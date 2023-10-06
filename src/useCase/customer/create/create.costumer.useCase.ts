@@ -1,6 +1,6 @@
 import { Customer } from "../../../entities/costumer"
-import { FindByEmailRepositories } from "../../../respositories/contracts/costumer/costumer.repository"
-import { saveCustomer } from "../../../respositories/contracts/costumer/costumer.save.repository"
+import { FindByEmailRepositories } from "../../../respositories/contracts/customer/costumer.repository"
+import { saveCustomer } from "../../../respositories/contracts/customer/costumer.save.repository"
 
 export class CustomerUseCase {
     constructor(

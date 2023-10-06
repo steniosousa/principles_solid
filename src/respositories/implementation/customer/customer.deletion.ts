@@ -1,5 +1,5 @@
 import axios from "axios";
-import { FindById } from "../../contracts/costumer/customer.FindById";
+import { FindById } from "../../contracts/customer/customer.FindById";
 
 export class CustomerDeletion implements FindById  {
   async Find(customerId: string): Promise<void> {

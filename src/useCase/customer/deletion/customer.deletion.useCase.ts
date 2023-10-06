@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { FindById } from "../../../respositories/contracts/costumer/customer.FindById";
+import { FindById } from "../../../respositories/contracts/customer/customer.FindById";
 
 export class CustomerDeletionUseCase {
     constructor(private readonly findById:FindById){}
