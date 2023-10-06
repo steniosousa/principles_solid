@@ -3,6 +3,8 @@ import { findAddress } from "../../../respositories/contracts/address/address.fi
 import { findByName } from "../../../respositories/contracts/clinic/clinic.find.name";
 import { addressSave } from "../../../respositories/contracts/address/address.create";
 import { clinicSave } from "../../../respositories/contracts/clinic/clinic.create";
+import { Address } from "../../../entities/address";
+import { Clinic } from "../../../entities/clinic";
 
 export class ClinicUseCase {
     constructor(
@@ -13,36 +15,45 @@ export class ClinicUseCase {
     ) { }
 
     async execute(req: Request) {
-        const { name, cep, street, number, district, city, country } = req.body
         try {
-            const clinicAlreadyExist = await this.iFindByName.find(name)
+            const { name, cep, street, number, district, city, country } = req.body
+
+
+            const clinicAlreadyExist = await this.iFindByName.findClinic(name)
+
             if (clinicAlreadyExist) {
                 throw new Error("Clinic already exist")
             }
 
-            const addressAlreadyExist = await this.iFindByCep.find(cep, street, number)
+            const addressAlreadyExist = await this.iFindByCep.findAddress(cep, street, number)
             if (addressAlreadyExist) {
                 throw new Error("Address already in use")
             }
-
-            const address = await this.iSaveAddress.save({
+            const newAddress = new Address({
                 cep,
-                street,
-                number,
-                district,
                 city,
-                country
+                country,
+                district,
+                number,
+                street,
             })
+
+            const address = await this.iSaveAddress.saveAddress(newAddress)
 
             if (!address) throw new Error('Unable to save address')
 
-            const clinic = await this.iclinicSave.save({
+            const newClinic = new Clinic({
                 adressId: address.id as string,
-                name,
+                name
             })
-            return clinic
+            const clinic = await this.iclinicSave.save(newClinic)
+            return new Clinic({
+                adressId:clinic.adressId,
+                name:clinic.name,
+                id:clinic.id
+            },clinic.id)
 
-        } catch {
+        } catch  {
             throw new Error('Failed to save clinic')
         }
     }
