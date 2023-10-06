@@ -1,91 +1,9 @@
 {
   "Customers": [],
   "Clinic": [
-    {
-      "adressId": "f70ad729-4b56-4dc5-ba05-20faf6410a28",
-      "name": "steniostyugfsdfesdfsdfrtsrfgddfsdousayutyryryfofghntsdfdfedfdfles",
-      "id": "abc47f15-a152-461a-8ec0-291838b36669"
-    },
-    {
-      "adressId": "2c6c8472-cbf2-4f37-86aa-9dd1d2112de4",
-      "name": "steniostyugfsdfesdfsdfsdfrtsrfgddfsdousayutyryryfofghntsdfdfedfdfles",
-      "id": "7945787e-714d-464f-9211-cbe57bb69d99"
-    },
-    {
-      "adressId": "838a4368-3b70-4ca7-b5ed-5487ab09fde5",
-      "name": "steniostyugfsdffgesdfsdfsdfrtsrfgddfsdousayutyryryfofghntsdfdfedfdfles",
-      "id": "29601361-f637-4bac-b904-65f4ac42de21"
-    },
-    {
-      "adressId": "4e2e1645-eeed-4486-aed1-754fa287c8a3",
-      "name": "steniostyugfsdfffgesdfsdfsdfrtsrfgddfsdousayutyryryfofghntsdfdfedfdfles",
-      "id": "f1827157-51f2-4210-9748-1078aa70ccd6"
-    },
-    {
-      "adressId": "c6f9494d-79fa-463a-a83c-7545677b2997",
-      "name": "steniostyugfsdfffgesdfsdfsdfsdfrtsrfgddfsdousayutyryryfofghntsdfdfedfdfles",
-      "id": "ca93dd29-4b9d-4ce3-ad49-107654c3a367"
-    },
-    {
-      "adressId": "80ef5ca7-38f2-42d2-a931-9ac83937e9a8",
-      "name": "steniostyugfsdffsffgesdfsdfsdfsdfrtsrfgddfsdousayutyryryfofghntsdfdfedfdfles",
-      "id": "ac1057db-633e-4c40-a8db-6292ddfecba7"
-    }
+    
   ],
   "Address": [
-    {
-      "cep": "skjsd",
-      "city": "ds",
-      "country": "stenio",
-      "district": "stenio",
-      "number": 3.324567644445455e+23,
-      "street": "steniosousa@gmail.com",
-      "id": "f70ad729-4b56-4dc5-ba05-20faf6410a28"
-    },
-    {
-      "cep": "skjsd",
-      "city": "ds",
-      "country": "stenio",
-      "district": "stenio",
-      "number": 3.3245676444454555e+25,
-      "street": "steniosousa@gmail.com",
-      "id": "2c6c8472-cbf2-4f37-86aa-9dd1d2112de4"
-    },
-    {
-      "cep": "skjsd",
-      "city": "ds",
-      "country": "stenio",
-      "district": "stenio",
-      "number": 3.3245676444454543e+27,
-      "street": "steniosousa@gmail.com",
-      "id": "838a4368-3b70-4ca7-b5ed-5487ab09fde5"
-    },
-    {
-      "cep": "skjsd",
-      "city": "ds",
-      "country": "stenio",
-      "district": "stenio",
-      "number": 3.3245676444545453e+28,
-      "street": "steniosousa@gmail.com",
-      "id": "4e2e1645-eeed-4486-aed1-754fa287c8a3"
-    },
-    {
-      "cep": "skjsd",
-      "city": "ds",
-      "country": "stenio",
-      "district": "stenio",
-      "number": 3.3245676444544554e+30,
-      "street": "steniosousa@gmail.com",
-      "id": "c6f9494d-79fa-463a-a83c-7545677b2997"
-    },
-    {
-      "cep": "skjsd",
-      "city": "ds",
-      "country": "stenio",
-      "district": "stenio",
-      "number": 3.324567645444545e+32,
-      "street": "steniosousa@gmail.com",
-      "id": "80ef5ca7-38f2-42d2-a931-9ac83937e9a8"
-    }
+   
   ]
 }

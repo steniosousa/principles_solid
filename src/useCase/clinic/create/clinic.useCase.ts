@@ -5,13 +5,15 @@ import { addressSave } from "../../../respositories/contracts/address/address.cr
 import { clinicSave } from "../../../respositories/contracts/clinic/clinic.create";
 import { Address } from "../../../entities/address";
 import { Clinic } from "../../../entities/clinic";
+import { ValidateCep } from "../../../respositories/contracts/address/address.valid.cep";
 
 export class ClinicUseCase {
     constructor(
         private readonly iFindByName: findByName,
         private readonly iFindByCep: findAddress,
         private readonly iSaveAddress: addressSave,
-        private readonly iclinicSave: clinicSave
+        private readonly iclinicSave: clinicSave,
+        private readonly ivalidateCep: ValidateCep
     ) { }
 
     async execute(req: Request) {
@@ -37,6 +39,8 @@ export class ClinicUseCase {
                 number,
                 street,
             })
+            const validateCep = await this.ivalidateCep.validate(newAddress.cep)
+            if (!validateCep || validateCep) throw new Error('CEP not found in the BrasilAPI database')
 
             const address = await this.iSaveAddress.saveAddress(newAddress)
 
@@ -48,12 +52,12 @@ export class ClinicUseCase {
             })
             const clinic = await this.iclinicSave.save(newClinic)
             return new Clinic({
-                adressId:clinic.adressId,
-                name:clinic.name,
-                id:clinic.id
-            },clinic.id)
+                adressId: clinic.adressId,
+                name: clinic.name,
+                id: clinic.id
+            }, clinic.id)
 
-        } catch  {
+        } catch {
             throw new Error('Failed to save clinic')
         }
     }

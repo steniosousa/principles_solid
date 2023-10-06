@@ -10,6 +10,8 @@ import { UpdateCustomer } from './factories/customer/customer.update'
 import { updateCustomerSchema } from './useCase/customer/update/customer.update.dto'
 import { ClinicCreate } from './factories/clinic/clinic.create'
 import { clinicCreateDTO } from './useCase/clinic/create/clinic.dto'
+import { AddressValidate } from './factories/address/address.validate'
+import { addressValidateSchema } from './useCase/address/validate/address.validate.dto'
 
 const routes = Router()
 
@@ -20,6 +22,8 @@ const updateCustomer = UpdateCustomer()
 
 
 const createClinic = ClinicCreate()
+
+const validateCep = AddressValidate()
 
 routes.post('/login', schemaValidator(loginSchema), (req: Request, res: Response) => iLogin.execute(req, res))
 
@@ -33,6 +37,8 @@ routes.patch('/customer', schemaValidator(updateCustomerSchema), (req: any, res:
 
 routes.post('/clinic', schemaValidator(clinicCreateDTO),(req, res) => createClinic.execute(req,res))
 
+
+routes.post('/address/validate',schemaValidator(addressValidateSchema),(req,res) => validateCep.execute(req,res))
 
 
 export { routes }

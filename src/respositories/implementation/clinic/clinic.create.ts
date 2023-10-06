@@ -5,8 +5,10 @@ import { clinicSave } from "../../contracts/clinic/clinic.create";
 import { findByName } from "../../contracts/clinic/clinic.find.name";
 import { Clinic } from "../../../entities/clinic";
 import { addressSave } from "../../contracts/address/address.create";
+import cep from 'cep-promise'
+import { ValidateCep } from "../../contracts/address/address.valid.cep";
 
-export class ClinicCreateImplementation implements findAddress, clinicSave, findByName, addressSave {
+export class ClinicCreateImplementation implements findAddress, clinicSave, findByName, addressSave, ValidateCep {
 
     async findAddress(cep: string, street: string, number: number): Promise<Address | null> {
         try {
@@ -46,6 +48,17 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
 
     }
 
+    async validate(clinicCep: string): Promise<boolean> {
+        try {
+            const returnCep = await cep(clinicCep)
+            console.log(returnCep)
+            return true
+        }
+        catch(error) {
+            return false
+        }
+    }
+
     async save(clinic: Clinic): Promise<Clinic> {
         try {
             const newClinic = new Clinic({
@@ -57,7 +70,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 name: newClinic.name,
                 id: newClinic.id
             })
-            const returnNewClinic:Clinic = newClinicSave.data
+            const returnNewClinic: Clinic = newClinicSave.data
             return returnNewClinic
         } catch {
             return null
@@ -66,7 +79,9 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
     }
 
     async saveAddress(address: Address): Promise<Address> {
+
         try {
+
             const newAddress = new Address({
                 cep: address.cep,
                 city: address.city,
@@ -91,4 +106,6 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
         }
 
     }
+
+
 }
