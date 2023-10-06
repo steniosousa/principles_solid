@@ -16,8 +16,18 @@ const createCustomer = MakeCustomerFactore()
 const deleteCustomer = DeleteCustomer()
 const updateCustomer = UpdateCustomer()
 
-routes.post('/customer', schemaValidator(createCustomerSchema), (req: Request, res: Response) => createCustomer.execute(req, res))
 routes.post('/login', schemaValidator(loginSchema), (req: Request, res: Response) => iLogin.execute(req, res))
+
+// routes for customer
+routes.post('/customer', schemaValidator(createCustomerSchema), (req: Request, res: Response) => createCustomer.execute(req, res))
 routes.delete('/customer',(req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),(req,res) => deleteCustomer.execute(req,res))
 routes.patch('/customer',schemaValidator(updateCustomerSchema),(req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),(req:any,res:Response) => updateCustomer.execute(req,res))
+
+
+
+
+
+
 export { routes }
+
+
