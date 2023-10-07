@@ -20,6 +20,7 @@ import { Update } from './factories/clinic/update'
 import { updateClinicSchema } from './useCase/clinic/update/dto'
 import { createDentist } from './factories/dentist/create'
 import { createDentistSchema } from './useCase/dentist/create/dto'
+import { ListClinic } from './factories/clinic/list'
 
 const routes = Router()
 
@@ -32,6 +33,7 @@ const updateCustomer = UpdateCustomer()
 const createClinic = ClinicCreate()
 const deleteClinic = DeleteClinic()
 const updateClinic = Update()
+const listClinics = ListClinic()
 
 
 const UpdateAddress = updateAddress()
@@ -49,10 +51,11 @@ routes.patch('/customer', (req: any, res: Response, next: NextFunction) => AuthM
 
 
 //routes for clinic
-
 routes.post('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(clinicCreateDTO), (req, res) => createClinic.execute(req, res))
 routes.delete('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(deleteClinicSchema), (req, res) => deleteClinic.execute(req, res))
 routes.patch('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateClinicSchema), (req, res) => updateClinic.execute(req, res))
+routes.get('/clinic/list',(req,res) => listClinics.execute(req,res))
+
 
 //routes for address
 routes.patch('/address', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateAddressSchema), (req, res) => UpdateAddress.execute(req, res))
