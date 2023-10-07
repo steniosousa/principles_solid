@@ -4,7 +4,7 @@ import { CustomerUseCase } from "../../useCase/customer/create/useCase";
 
 export function MakeCustomerFactore() {
     const iJsonServerCreateCustomer = new JsonServerCreateCustomer()
-    const iCustomerUseCase = new CustomerUseCase(iJsonServerCreateCustomer, iJsonServerCreateCustomer)
+    const iCustomerUseCase = new CustomerUseCase(iJsonServerCreateCustomer, iJsonServerCreateCustomer,iJsonServerCreateCustomer)
     const iController = new CreateCustomerController(iCustomerUseCase)
     return iController
 }

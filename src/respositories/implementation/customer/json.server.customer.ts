@@ -3,8 +3,10 @@ import { default as axios } from 'axios'
 import { saveCustomer } from "../../contracts/customer/costumer.save.repository";
 import { FindByEmailRepositories } from "../../contracts/customer/costumer.repository";
 import bcrypt from 'bcryptjs'
+import { findById } from "../../contracts/clinic/findById";
+import { Clinic } from "../../../entities/clinic";
 
-export class JsonServerCreateCustomer implements saveCustomer, FindByEmailRepositories {
+export class JsonServerCreateCustomer implements saveCustomer, FindByEmailRepositories,findById {
     async findByEmail(email: string): Promise<Customer | null> {
         const response = await axios.get(`${process.env.DATABASE_JSON_SERVER}/Customers?email=${email}`)
         const customerFound: Customer = response.data[0]
@@ -24,6 +26,16 @@ export class JsonServerCreateCustomer implements saveCustomer, FindByEmailReposi
             password: hashPassword,
             id:customer.id
         })
+    }
+
+    async find(id: string): Promise<Clinic> {
+        try{
+            const response = await axios.get(`${process.env.DATABASE_JSON_SERVER}/Clinic/${id}`)
+            const returClini:Clinic = response.data
+            return returClini
+        }catch{
+            throw new Error('Clinic not found')
+        }
     }
 
 }
