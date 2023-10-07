@@ -18,6 +18,8 @@ import { updateAddress } from './factories/address/update'
 import { updateAddressSchema } from './useCase/address/update/dto'
 import { Update } from './factories/clinic/update'
 import { updateClinicSchema } from './useCase/clinic/update/dto'
+import { createDentist } from './factories/dentist/create'
+import { createDentistSchema } from './useCase/dentist/create/dto'
 
 const routes = Router()
 
@@ -34,6 +36,9 @@ const updateClinic = Update()
 
 const UpdateAddress = updateAddress()
 const validateCep = AddressValidate()
+
+
+const CreateDentist = createDentist()
 
 routes.post('/login', schemaValidator(loginSchema), (req: Request, res: Response) => iLogin.execute(req, res))
 
@@ -53,6 +58,9 @@ routes.patch('/clinic', (req: any, res: Response, next: NextFunction) => AuthMid
 routes.patch('/address', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateAddressSchema), (req, res) => UpdateAddress.execute(req, res))
 routes.post('/address/validate-cep', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(addressValidateSchema), (req, res) => validateCep.execute(req, res))
 
+
+//routes for dentist
+routes.post('/dentist', schemaValidator(createDentistSchema), (req, res) => CreateDentist.execute(req, res))
 
 export { routes }
 
