@@ -11,7 +11,7 @@ import { validateCnpj } from "../../../respositories/contracts/clinic/validate.c
 export class ClinicUseCase {
     constructor(
         private readonly iFindByName: findByName,
-        private readonly iFindByCep: findAddress,
+        private readonly iFindAddress: findAddress,
         private readonly iSaveAddress: addressSave,
         private readonly iclinicSave: clinicSave,
         private readonly ivalidateCep: ValidateCep,
@@ -20,7 +20,7 @@ export class ClinicUseCase {
 
     async execute(req: Request) {
         try {
-            const { name, cep, street, number, district, city, country, cnpj } = req.body
+            const { name, cep, street, number, district, city, country, cnpj,phone } = req.body
 
 
             const clinicAlreadyExist = await this.iFindByName.findClinic(name)
@@ -29,7 +29,7 @@ export class ClinicUseCase {
                 throw new Error("Clinic already exist")
             }
 
-            const addressAlreadyExist = await this.iFindByCep.findAddress(cep, street, number)
+            const addressAlreadyExist = await this.iFindAddress.findAddress(cep, street, number)
             if (addressAlreadyExist) {
                 throw new Error("Address already in use")
             }
@@ -55,14 +55,16 @@ export class ClinicUseCase {
             const newClinic = new Clinic({
                 adressId: address.id as string,
                 name,
-                cnpj
+                cnpj,
+                phone
             })
             const clinic = await this.iclinicSave.save(newClinic)
             return new Clinic({
                 adressId: clinic.adressId,
                 name: clinic.name,
                 id: clinic.id,
-                cnpj: clinic.cnpj
+                cnpj: clinic.cnpj,
+                phone:clinic.phone
             }, clinic.id)
 
         } catch (error){

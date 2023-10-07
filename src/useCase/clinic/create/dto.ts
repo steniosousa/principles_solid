@@ -8,5 +8,6 @@ export const clinicCreateDTO = z.object({
     district: z.string(),
     city: z.string(),
     name:z.string(),
-    cnpj:z.string()
+    cnpj:z.string(),
+    phone:z.string()
 })

@@ -12,9 +12,10 @@
   "Clinic": [
     {
       "adressId": "78873c10-3938-4e4e-a31e-8ab15e7fc0e3",
-      "name": "Stênio",
+      "name": "DAYANE",
       "cnpj": "96971388000147",
-      "id": "08bafbdf-e468-4a06-805d-d772bee1ea46"
+      "id": "08bafbdf-e468-4a06-805d-d772bee1ea46",
+      "phone": "98890"
     }
   ],
   "Address": [

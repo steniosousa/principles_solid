@@ -16,6 +16,8 @@ import { deleteClinicSchema } from './useCase/clinic/delete/dto'
 import { addressValidateSchema } from './useCase/address/validate/address.validate.dto'
 import { updateAddress } from './factories/address/update'
 import { updateAddressSchema } from './useCase/address/update/dto'
+import { Update } from './factories/clinic/update'
+import { updateClinicSchema } from './useCase/clinic/update/dto'
 
 const routes = Router()
 
@@ -27,6 +29,7 @@ const updateCustomer = UpdateCustomer()
 
 const createClinic = ClinicCreate()
 const deleteClinic = DeleteClinic()
+const updateClinic = Update()
 
 
 const UpdateAddress = updateAddress()
@@ -37,17 +40,18 @@ routes.post('/login', schemaValidator(loginSchema), (req: Request, res: Response
 // routes for customer
 routes.post('/customer', schemaValidator(createCustomerSchema), (req: Request, res: Response) => createCustomer.execute(req, res))
 routes.delete('/customer', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => deleteCustomer.execute(req, res))
-routes.patch('/customer', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),schemaValidator(updateCustomerSchema), (req: any, res: Response) => updateCustomer.execute(req, res))
+routes.patch('/customer', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateCustomerSchema), (req: any, res: Response) => updateCustomer.execute(req, res))
 
 
 //routes for clinic
 
-routes.post('/clinic',(req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(clinicCreateDTO),(req, res) => createClinic.execute(req,res))
-routes.delete('/clinic',(req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),schemaValidator(deleteClinicSchema), (req,res) => deleteClinic.execute(req,res))
+routes.post('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(clinicCreateDTO), (req, res) => createClinic.execute(req, res))
+routes.delete('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(deleteClinicSchema), (req, res) => deleteClinic.execute(req, res))
+routes.patch('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateClinicSchema), (req, res) => updateClinic.execute(req, res))
 
 //routes for address
-routes.patch('/address',(req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),schemaValidator(updateAddressSchema),(req,res)=>UpdateAddress.execute(req,res))
-routes.post('/address/validate-cep',(req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),schemaValidator(addressValidateSchema),(req,res) => validateCep.execute(req,res))
+routes.patch('/address', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateAddressSchema), (req, res) => UpdateAddress.execute(req, res))
+routes.post('/address/validate-cep', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(addressValidateSchema), (req, res) => validateCep.execute(req, res))
 
 
 export { routes }
