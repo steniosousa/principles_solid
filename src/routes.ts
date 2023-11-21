@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response, Router, response } from 'express'
+import { NextFunction, Request, Response, Router } from 'express'
 import { MakeCustomerFactore } from './factories/customer/customer.create'
 import { createCustomerSchema } from './useCase/customer/create/dto'
 import { schemaValidator } from './validator/schemaValidator'

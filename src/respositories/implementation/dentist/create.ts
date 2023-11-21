@@ -5,35 +5,89 @@ import { createDentist } from "../../contracts/dentist/create";
 import { findByEmail } from "../../contracts/dentist/findByEmail";
 import { Clinic } from "../../../entities/clinic";
 import bcrypt from 'bcryptjs'
+import { prisma } from "../../prisma/prisma.service";
+import { ZodError } from "zod";
 
 export class create implements findByEmail, createDentist, findById {
+
     async findDentis(email: string): Promise<Dentist> {
-        const response = await axios.get(`${process.env.DATABASE_JSON_SERVER}/Dentist?email=${email}`)
-        const dentistAlreadyExist: Dentist = response.data[0]
-        return dentistAlreadyExist
+        try {
+
+            const response = await prisma.doctor.findFirst({
+                where: {
+                    email
+                }
+            })
+            const dentistAlreadyExist: Dentist = new Dentist({
+                clinicId: response.clinicId,
+                email: response.email,
+                name: response.name,
+                password: response.password,
+                id: response.id
+            })
+            return dentistAlreadyExist
+        } catch (error) {
+            let message
+            if (error instanceof ZodError) {
+                message = error.message
+            }
+            throw new Error(message)
+        }
     }
+
     async find(id: string): Promise<Clinic> {
-        const response = await axios.get(`${process.env.DATABASE_JSON_SERVER}/Clinic/${id}`)
-        const clinicAlreadyExist: Clinic = response.data[0]
-        return clinicAlreadyExist
+        try {
+            const response = await prisma.clinic.findUnique({
+                where: {
+                    id
+                }
+            })
+            const clinicAlreadyExist: Clinic = new Clinic({
+                adressId: response.addresId,
+                cnpj: response.cnpj,
+                name: response.name,
+                phone: response.phone,
+                id: response.id
+            })
+            return clinicAlreadyExist
+
+        } catch (error) {
+            let message;
+            if (error instanceof ZodError) {
+                message = error.message
+            }
+            throw new Error(message)
+        }
 
     }
 
     async create(datas: Dentist): Promise<Dentist> {
-        const hashPassword = await bcrypt.hash(datas.password, 10)
 
         try {
-            const response = await axios.post(`${process.env.DATABASE_JSON_SERVER}/Dentist/`, {
-                name: datas.name,
-                clinicId: datas.clinicId,
-                email: datas.email,
-                password: hashPassword
+            const hashPassword = await bcrypt.hash(datas.password, 10)
+            const response = await prisma.doctor.create({
+                data: {
+                    name: datas.name,
+                    clinicId: datas.clinicId,
+                    email: datas.email,
+                    password: hashPassword
+                }
             })
-            const newDentist: Dentist = response.data
+            const newDentist: Dentist = new Dentist({
+                clinicId: response.clinicId,
+                email: response.email,
+                name: response.name,
+                password: response.password,
+                id: response.id
+            })
             return newDentist
 
-        } catch {
-            throw new Error('Unable to create professional')
+        } catch (error) {
+            let message;
+            if (error instanceof ZodError) {
+                message = error.message
+            }
+            throw new Error(message)
         }
     }
 }

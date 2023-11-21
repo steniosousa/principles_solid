@@ -5,36 +5,65 @@ import { FindByEmailRepositories } from "../../contracts/customer/costumer.repos
 import bcrypt from 'bcryptjs'
 import { findById } from "../../contracts/clinic/findById";
 import { Clinic } from "../../../entities/clinic";
+import { prisma } from "../../prisma/prisma.service";
+import { ZodError } from "zod";
 
-export class JsonServerCreateCustomer implements saveCustomer, FindByEmailRepositories,findById {
+export class JsonServerCreateCustomer implements saveCustomer, FindByEmailRepositories, findById {
     async findByEmail(email: string): Promise<Customer | null> {
-        const response = await axios.get(`${process.env.DATABASE_JSON_SERVER}/Customers?email=${email}`)
-        const customerFound: Customer = response.data[0]
-        if (!customerFound) return null
-        return customerFound
+        const response = await prisma.customers.findFirst({
+            where: {
+                email
+            }
+        })
+        if (!response) return null
+        return response
     }
 
     async save(customer: Customer): Promise<void> {
+        try {
+            const hashPassword = await bcrypt.hash(customer.password, 10)
 
-        const hashPassword = await bcrypt.hash(customer.password, 10)
+            await prisma.customers.create({
+                data: {
+                    email: customer.email,
+                    clinicId: customer.clinicId,
+                    name: customer.name,
+                    phone: customer.phone,
+                    password: hashPassword,
+                }
+            })
 
-        await axios.post(`${process.env.DATABASE_JSON_SERVER}/Customers/`, {
-            email: customer.email,
-            clinicId: customer.clinicId,
-            name: customer.name,
-            phone: customer.phone,
-            password: hashPassword,
-            id:customer.id
-        })
+        } catch (error) {
+            let message
+            if (error instanceof ZodError) {
+                message = error.message
+            }
+            throw new Error(message)
+        }
     }
 
+
     async find(id: string): Promise<Clinic> {
-        try{
-            const response = await axios.get(`${process.env.DATABASE_JSON_SERVER}/Clinic/${id}`)
-            const returClini:Clinic = response.data
+        try {
+            const response = await prisma.clinic.findUnique({
+                where: {
+                    id
+                }
+            })
+            const returClini: Clinic = new Clinic({
+                adressId: response.addresId,
+                cnpj: response.cnpj,
+                name: response.name,
+                phone: response.phone,
+                id: response.id
+            })
             return returClini
-        }catch{
-            throw new Error('Clinic not found')
+        } catch (error) {
+            let message
+            if (error instanceof ZodError) {
+                message = error.message
+            }
+            throw new Error(message)
         }
     }
 

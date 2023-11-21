@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Address } from "../../../entities/address";
 import { findAddress } from "../../contracts/address/find";
 import { clinicSave } from "../../contracts/clinic/create";
@@ -9,42 +8,50 @@ import cep from 'cep-promise'
 import { ValidateCep } from "../../contracts/address/valid.cep";
 import { cnpj } from 'cpf-cnpj-validator';
 import { validateCnpj } from "../../contracts/clinic/validate.cnpj";
+import { prisma } from "../../prisma/prisma.service";
+
 export class ClinicCreateImplementation implements findAddress, clinicSave, findByName, addressSave, ValidateCep, validateCnpj {
 
     async findAddress(cep: string, street: string, number: number): Promise<Address | null> {
         try {
-            const addressAlreadyExist = await axios.get(`${process.env.DATABASE_JSON_SERVER}/Address/`)
-            const addressFound = addressAlreadyExist.data
-
-            const filterAdress = addressFound.find((item: Address) => item.cep == cep && item.street == street && item.number == number)
-            const returnJson = new Address({
-                cep: filterAdress.cep,
-                city: filterAdress.city,
-                country: filterAdress.country,
-                district: filterAdress.district,
-                number: filterAdress.number,
-                street: filterAdress.street,
+            const addressAlreadyExist = await prisma.address.findFirst({
+                where: {
+                    cep, street, number
+                }
             })
-
-            if (filterAdress) return returnJson
-
-            return null
+            return addressAlreadyExist
         }
         catch (error) {
-            return null
+            let message;
+            if (error instanceof Error) {
+                message = error.message
+            }
+            throw new Error(message)
         }
     }
 
-
-
     async findClinic(name: string): Promise<Clinic | null> {
         try {
-            const addressAlreadyExist = await axios.get(`${process.env.DATABASE_JSON_SERVER}/Clinic?name=${name}`)
-            const addresFound: Clinic = addressAlreadyExist.data[0]
-            return addresFound
+            const addressAlreadyExist = await prisma.clinic.findFirst({
+                where: {
+                    name
+                }
+            })
+            const returnClinic = new Clinic({
+                adressId: addressAlreadyExist.addresId,
+                cnpj: addressAlreadyExist.cnpj,
+                name: addressAlreadyExist.name,
+                phone: addressAlreadyExist.phone,
+                id: addressAlreadyExist.id
+            })
+            return returnClinic
 
         } catch (error) {
-            return null
+            let message;
+            if (error instanceof Error) {
+                message = error.message
+            }
+            throw new Error(message)
         }
 
     }
@@ -55,34 +62,60 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
             return true
         }
         catch (error) {
-            return false
+            let message;
+            if (error instanceof Error) {
+                message = error.message
+            }
+            throw new Error(message)
         }
     }
 
     async validateCnpjInterface(cnpjRe: string): Promise<any> {
-        const validate = cnpj.isValid(cnpjRe);
-        return validate
+        try{
+            const validate = cnpj.isValid(cnpjRe);
+            return validate
+            
+        }catch(error){
+            let message;
+            if(error instanceof Error){
+                message = error.message
+            }
+            throw new Error(message)
+        }
+
     }
-
-
 
     async save(clinic: Clinic): Promise<Clinic> {
         try {
             const newClinic = new Clinic({
                 adressId: clinic.adressId,
                 name: clinic.name,
-                cnpj: clinic.cnpj
+                cnpj: clinic.cnpj,
+                phone: clinic.phone
             })
-            const newClinicSave = await axios.post(`${process.env.DATABASE_JSON_SERVER}/Clinic/`, {
-                adressId: newClinic.adressId,
-                name: newClinic.name,
-                cnpj:newClinic.cnpj,
-                id: newClinic.id
+            const newClinicSave = await prisma.clinic.create({
+                data: {
+                    id: newClinic.id,
+                    addresId: newClinic.adressId,
+                    name: newClinic.name,
+                    cnpj: newClinic.cnpj,
+                    phone: newClinic.phone
+                }
             })
-            const returnNewClinic: Clinic = newClinicSave.data
+            const returnNewClinic: Clinic = new Clinic({
+                adressId: newClinicSave.addresId,
+                cnpj: newClinicSave.cnpj,
+                name: newClinicSave.name,
+                phone: newClinicSave.phone,
+                id: newClinicSave.id
+            })
             return returnNewClinic
-        } catch {
-            return null
+        } catch (error) {
+            let message;
+            if (error instanceof Error) {
+                message = error.message
+            }
+            throw new Error(message)
         }
 
     }
@@ -90,7 +123,6 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
     async saveAddress(address: Address): Promise<Address> {
 
         try {
-
             const newAddress = new Address({
                 cep: address.cep,
                 city: address.city,
@@ -99,19 +131,25 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 number: address.number,
                 street: address.street,
             })
-            const newAddressSave = await axios.post(`${process.env.DATABASE_JSON_SERVER}/Address/`, {
-                cep: newAddress.cep,
-                city: newAddress.city,
-                country: newAddress.country,
-                district: newAddress.district,
-                number: newAddress.number,
-                street: newAddress.street,
-                id: newAddress.id
+            const newAddressSave = await prisma.address.create({
+                data: {
+                    cep: newAddress.cep,
+                    city: newAddress.city,
+                    country: newAddress.country,
+                    district: newAddress.district,
+                    number: newAddress.number,
+                    street: newAddress.street,
+                    id: newAddress.id
+                }
             })
-            const saveAddress: Address = newAddressSave.data
+            const saveAddress: Address = newAddressSave
             return saveAddress
-        } catch {
-            return null
+        } catch (error) {
+            let message
+            if (error instanceof Error) {
+                message = error.message
+            }
+            throw new Error(message)
         }
 
     }

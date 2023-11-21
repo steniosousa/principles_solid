@@ -1,15 +1,18 @@
-import axios from "axios";
 import { Address } from "../../../entities/address";
 import { updateAddress } from "../../contracts/address/update";
 import { finById } from "../../contracts/address/findById";
+import { prisma } from "../../prisma/prisma.service";
 
 export class update implements updateAddress, finById {
 
-
     async find(id: string): Promise<Address> {
         try {
-            const response = await axios.get(`${process.env.DATABASE_JSON_SERVER}/Address/${id}`)
-            const returNewAddress: Address = response.data
+            const response = await prisma.address.findUnique({
+                where: {
+                    id
+                }
+            })
+            const returNewAddress: Address = response
             return returNewAddress
         }
         catch (error) {
@@ -19,15 +22,24 @@ export class update implements updateAddress, finById {
 
 
     async update(newAddress: Address): Promise<Address> {
-        const response = await axios.patch(`${process.env.DATABASE_JSON_SERVER}/Address/${newAddress.id}`, {
-            cep: newAddress.cep,
-            number: newAddress.number,
-            street: newAddress.street,
-            district: newAddress.district,
-            city: newAddress.city,
-            country: newAddress.country
-        })
+        try {
+            const response = await prisma.address.update({
+                where: {
+                    id: newAddress.id
+                },
+                data: {
+                    ...newAddress
+                }
+            })
 
-        return response.data
+            return response
+
+        } catch (error) {
+            let message;
+            if (error instanceof Error) {
+                message = error.message
+            }
+            throw new Error(message)
+        }
     }
 }
