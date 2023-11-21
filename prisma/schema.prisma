@@ -1,11 +1,85 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x", "debian-openssl-1.1.x"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model Customers {
+  id          String        @id @default(uuid())
+  name        String
+  email       String        @unique
+  password    String
+  createdAt   DateTime      @default(now())
+  clinicId    String?
+  clinic      Clinic?       @relation(fields: [clinicId], references: [id])
+  appointment Appointment[]
+}
+
+model Clinic {
+  id        String      @id @default(uuid())
+  name      String
+  cnpj      String
+  phone     String
+  addresId  String
+  address   Address     @relation(fields: [addresId], references: [id])
+  doctors   Doctor[]
+  customers Customers[]
+}
+
+model Address {
+  id       String   @id @default(uuid())
+  city     String
+  country  String
+  district String
+  number   Int
+  street   String
+  cep      String
+  clinics  Clinic[]
+}
+
+model Doctor {
+  id       String @id @default(uuid())
+  name     String
+  clinicId String
+  email    String
+  password String
+
+  clinic         Clinic          @relation(fields: [clinicId], references: [id])
+  appointments   Appointment[]
+  doctorServices DoctorService[]
+}
+
+model Services {
+  id   String @id @default(uuid())
+  name String
+  cost String
+
+  doctorServices DoctorService[]
+}
+
+model DoctorService {
+  id        String @id @default(uuid())
+  doctorId  String
+  serviceId String
+
+  doctor  Doctor   @relation(fields: [doctorId], references: [id])
+  service Services @relation(fields: [serviceId], references: [id])
+
+  appointment Appointment[]
+}
+
+model Appointment {
+  id   String   @id @default(uuid())
+  date DateTime @updatedAt()
+
+  serviceId     String
+  customerId    String
+  appointmentId String
+  service       DoctorService @relation(fields: [serviceId], references: [id])
+  customer      Customers     @relation(fields: [customerId], references: [id])
+  appointment   Doctor        @relation(fields: [appointmentId], references: [id])
 }
