@@ -1,14 +1,12 @@
 import { v4 as uuidv4 } from 'uuid'
 
-export class Dentist {
+export class Service {
     public readonly id?: string
     public name: string = ''
-    public clinicId: string = ''
-    public email:string = ''
-    public password:string = ''
-    public room:number 
+    public cost: string = ''
 
-    constructor(props: Dentist, id?: string) {
+
+    constructor(props: Service, id?: string) {
         Object.assign(this, props)
 
         if (!id) {

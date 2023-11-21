@@ -21,6 +21,8 @@ import { updateClinicSchema } from './useCase/clinic/update/dto'
 import { createDentist } from './factories/dentist/create'
 import { createDentistSchema } from './useCase/dentist/create/dto'
 import { ListClinic } from './factories/clinic/list'
+import { createServiceFactore } from './factories/service/create'
+import { serviceCreateDTO } from './useCase/service/create/dto'
 
 const routes = Router()
 
@@ -41,6 +43,8 @@ const validateCep = AddressValidate()
 
 
 const CreateDentist = createDentist()
+
+const createService = createServiceFactore()
 
 routes.post('/login', schemaValidator(loginSchema), (req: Request, res: Response) => iLogin.execute(req, res))
 
@@ -65,6 +69,8 @@ routes.post('/address/validate-cep', (req: any, res: Response, next: NextFunctio
 //routes for dentist
 routes.post('/dentist', schemaValidator(createDentistSchema), (req, res) => CreateDentist.execute(req, res))
 
+
+routes.post('/service', schemaValidator(serviceCreateDTO), (req,res) => createService.execute(req,res))
 export { routes }
 
 

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Dentist } from "../../../entities/dentist";
 import { findById } from "../../contracts/clinic/findById";
 import { createDentist } from "../../contracts/dentist/create";
@@ -23,7 +22,8 @@ export class create implements findByEmail, createDentist, findById {
                 email: response.email,
                 name: response.name,
                 password: response.password,
-                id: response.id
+                id: response.id,
+                room: response.room
             })
             return dentistAlreadyExist
         } catch (error) {
@@ -70,7 +70,8 @@ export class create implements findByEmail, createDentist, findById {
                     name: datas.name,
                     clinicId: datas.clinicId,
                     email: datas.email,
-                    password: hashPassword
+                    password: hashPassword,
+                    room: datas.room
                 }
             })
             const newDentist: Dentist = new Dentist({
@@ -78,7 +79,8 @@ export class create implements findByEmail, createDentist, findById {
                 email: response.email,
                 name: response.name,
                 password: response.password,
-                id: response.id
+                id: response.id,
+                room: response.room
             })
             return newDentist
 
