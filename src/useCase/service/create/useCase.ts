@@ -15,12 +15,11 @@ export class serviceUseCase {
             if (serviceAlredyExist) {
                 throw new Error("Service already exist")
             }
-            const create = await this.icreateService.createService({
+            await this.icreateService.createService({
                 cost,
                 name,
 
             }, clinicId)
-            return create
 
         } catch (error) {
             let errorMessage = "Failed to do something exceptional";
