@@ -25,6 +25,8 @@ import { createServiceFactore } from './factories/service/create'
 import { serviceCreateDTO } from './useCase/service/create/dto'
 import { serviceListDTO } from './useCase/service/list/dto'
 import { ListServiceFactore } from './factories/service/list'
+import { UpdateService } from './factories/service/update'
+import { serviceUpdateDTO } from './useCase/service/edit/dto'
 
 const routes = Router()
 
@@ -48,6 +50,7 @@ const CreateDentist = createDentist()
 
 const createService = createServiceFactore()
 const listService = ListServiceFactore()
+const editService = UpdateService()
 
 routes.post('/login', schemaValidator(loginSchema), (req: Request, res: Response) => iLogin.execute(req, res))
 
@@ -75,6 +78,7 @@ routes.post('/dentist', schemaValidator(createDentistSchema), (req, res) => Crea
 
 routes.post('/service', schemaValidator(serviceCreateDTO), (req, res) => createService.execute(req, res))
 routes.get('/service/list', schemaValidator(serviceListDTO), (req, res) => listService.execute(req, res))
+routes.post('/service/update', schemaValidator(serviceUpdateDTO), (req, res) => editService.execute(req, res))
 export { routes }
 
 

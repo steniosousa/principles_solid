@@ -18,6 +18,7 @@ export class serviceUseCase {
             await this.icreateService.createService({
                 cost,
                 name,
+                clinicId
 
             }, clinicId)
 

@@ -10,10 +10,16 @@ export class createServiceImplementation implements CreateService, FindService {
             const existService = await prisma.services.findFirst({
                 where: {
                     name: service.name,
-                    ClinicId: clinicId
+                    ClinicId: clinicId,
                 }
             })
-            return existService
+            const newService = new Service({
+                clinicId: existService.ClinicId,
+                cost: existService.cost,
+                name: existService.name,
+                id: existService.id
+            })
+            return newService
 
         } catch (error) {
             let errorMessage = "Failed to do something exceptional";
@@ -26,12 +32,18 @@ export class createServiceImplementation implements CreateService, FindService {
 
     async createService(service: Service, ClinicId: string): Promise<Service> {
         try {
-            const newService = await prisma.services.create({
+            const createService = await prisma.services.create({
                 data: {
                     cost: service.cost,
                     name: service.name,
                     ClinicId
                 }
+            })
+            const newService = new Service({
+                clinicId: createService.ClinicId,
+                cost: createService.cost,
+                name: createService.name,
+                id: createService.id
             })
             return newService
 

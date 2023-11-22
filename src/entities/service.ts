@@ -4,6 +4,7 @@ export class Service {
     public readonly id?: string
     public name: string = ''
     public cost: string = ''
+    public clinicId: string = ''
 
 
     constructor(props: Service, id?: string) {

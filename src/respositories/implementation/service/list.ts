@@ -13,14 +13,21 @@ export class ListServicesImplementation implements ListServiceContrat {
                     id: true,
                     name: true,
                     cost: true,
+                    ClinicId: true,
                     doctorServices: {
                         include: {
                             doctor: true
                         }
-                    }
+                    },
                 }
             })
-            return list
+            const allServices: Service[] = list.map((item) => ({
+                clinicId: item.ClinicId,
+                cost: item.cost,
+                name: item.name,
+                id: item.id
+            }));
+            return allServices
         } catch (error) {
             let errorMessage = "Failed to do something exceptional";
             if (error instanceof Error) {
