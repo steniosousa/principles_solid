@@ -6,10 +6,8 @@ export class controller {
 
     async execute(req: Request, res: Response) {
         try {
-            const { email, name, password, clinicId,room } = req.body
-
-            const newDentist = await this.iUseCase.execute( email, name, password, clinicId,room)
-
+            const { email, room } = req.body
+            const newDentist = await this.iUseCase.execute(email, room, req)
             res.status(200).send(newDentist)
 
         } catch (error: unknown) {

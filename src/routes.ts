@@ -73,7 +73,7 @@ routes.post('/address/validate-cep', schemaValidator(addressValidateSchema), (re
 
 
 //routes for dentist
-routes.post('create/dentist', schemaValidator(createDentistSchema), (req, res) => CreateDentist.execute(req, res))
+routes.post('/create/dentist',(req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(createDentistSchema), (req, res) => CreateDentist.execute(req, res))
 
 
 routes.post('/service', schemaValidator(serviceCreateDTO), (req, res) => createService.execute(req, res))

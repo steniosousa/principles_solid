@@ -98,7 +98,8 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 name: clinic.name,
                 cnpj: clinic.cnpj,
                 phone: clinic.phone,
-                password: hashPassword
+                password: hashPassword,
+
             })
             const newClinicSave = await prisma.clinic.create({
                 data: {
@@ -107,7 +108,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                     name: newClinic.name,
                     cnpj: newClinic.cnpj,
                     phone: newClinic.phone,
-                    password: newClinic.password
+                    password: newClinic.password,
                 }
             })
             const returnNewClinic: Clinic = new Clinic({

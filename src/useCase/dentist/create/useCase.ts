@@ -1,37 +1,40 @@
-import { Request } from "express";
 import { findByEmail } from "../../../respositories/contracts/dentist/findByEmail";
 import { createDentist } from "../../../respositories/contracts/dentist/create";
-import { findById } from "../../../respositories/contracts/clinic/findById";
-import { Dentist } from "../../../entities/dentist";
+import { findClinicById } from "../../../respositories/contracts/clinic/findById";
+import { findRoom } from "../../../respositories/contracts/clinic/findRoom";
 
 export class useCase {
     constructor(
         private readonly findByEmailDentist: findByEmail,
-        private readonly findByEmailClinic: findById,
-        private readonly createDentist: createDentist
+        private readonly createDentist: createDentist,
+        private readonly findClinicById: findClinicById,
+        private readonly ifindRoom: findRoom
     ) { }
 
-    async execute(email: string, name: string, password: string, clinicId: string, room: number) {
+    async execute(email: string, room: number, req: any) {
         try {
             const dentistAlreadyExist = await this.findByEmailDentist.findDentis(email)
-            if (dentistAlreadyExist) throw new Error('Professional already exist')
+            if (dentistAlreadyExist) throw new Error('Profissional já registrado')
 
-            const clinicExist = await this.findByEmailClinic.find(clinicId)
-            if (!clinicExist) throw new Error('Clinic not found')
+            const foundClinic = await this.findClinicById.find(req.user.id)
+            if (!foundClinic) throw new Error('Clinica não existe')
 
-
-            const newDentist = new Dentist({
+            const findRoomInUse = await this.ifindRoom.findRoom(room, req.user.id)
+            if (findRoomInUse) throw new Error("Sala já preenchida")
+            const numberRandom = Math.random() * 1000
+            const createDentist = await this.createDentist.create({
+                clinicId: req.user.id,
                 email,
-                name,
-                password,
-                clinicId,
-                room
+                room,
+                password: foundClinic.cnpj,
+                name: `Usuário ${numberRandom.toFixed(0)} `,
+                firstAccess: true
             })
 
-            await this.createDentist.create(newDentist)
-
+            return createDentist
 
         } catch (error: unknown) {
+
             let message = "Unable to create professional"
             if (error instanceof Error) {
                 message = error.message

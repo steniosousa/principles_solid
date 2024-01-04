@@ -8,7 +8,7 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 
-export class LoginUserOrClinic implements findByEmail, LoginContract,JwtContract {
+export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContract {
     async findDentis(email: string): Promise<Clinic | Dentist> {
         try {
             const responseClinic = await prisma.clinic.findFirst({
@@ -16,15 +16,10 @@ export class LoginUserOrClinic implements findByEmail, LoginContract,JwtContract
                     cnpj: email
                 }
             })
+
             if (responseClinic) {
-                const returnClinic = new Clinic({
-                    adressId: responseClinic.addresId,
-                    cnpj: responseClinic.cnpj,
-                    name: responseClinic.name,
-                    phone: responseClinic.phone,
-                    password: responseClinic.password
-                })
-                return returnClinic
+                const returNewAddress: any = responseClinic
+                return returNewAddress
             }
             const reponseDentist = await prisma.doctor.findFirst({
                 where: {
@@ -32,15 +27,8 @@ export class LoginUserOrClinic implements findByEmail, LoginContract,JwtContract
                 }
             })
             if (reponseDentist) {
-                const returnDoctor = new Dentist({
-                    clinicId: reponseDentist.clinicId,
-                    email: reponseDentist.email,
-                    name: reponseDentist.name,
-                    room: reponseDentist.room,
-                    id: responseClinic.id,
-                    password: reponseDentist.password
-                })
-                return returnDoctor
+                const returNewAddress: any = reponseDentist
+                return returNewAddress
             }
             return null
         }
@@ -57,8 +45,7 @@ export class LoginUserOrClinic implements findByEmail, LoginContract,JwtContract
         return matchPassword
     }
 
-    sign(userId: string): any {
-        console.log(userId)
+    async sign(userId: string) {
         const jwtSecret = process.env.JWT_SECRET_TOKEN as string
         const maxAge = 5 * 60 * 60;
         const token = jwt.sign(

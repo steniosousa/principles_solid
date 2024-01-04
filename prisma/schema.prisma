@@ -45,12 +45,13 @@ model Address {
 }
 
 model Doctor {
-  id       String @id @default(uuid())
-  name     String
-  clinicId String
-  email    String
-  password String
-  room     Int
+  id          String  @id @default(uuid())
+  name        String
+  clinicId    String
+  email       String
+  password    String
+  room        Int
+  firstAccess Boolean @default(true)
 
   clinic         Clinic          @relation(fields: [clinicId], references: [id])
   appointments   Appointment[]
