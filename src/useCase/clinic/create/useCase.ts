@@ -20,13 +20,12 @@ export class ClinicUseCase {
 
     async execute(req: Request) {
         try {
-            const { name, cep, street, number, district, city, country, cnpj,phone } = req.body
-
+            const { name, cep, street, number, district, city, country, cnpj, phone, password } = req.body
 
             const clinicAlreadyExist = await this.iFindByName.findClinic(name)
 
             if (clinicAlreadyExist) {
-                throw new Error("Clinic already exist")
+                throw new Error("Clínica já existente")
             }
 
             const addressAlreadyExist = await this.iFindAddress.findAddress(cep, street, number)
@@ -44,19 +43,19 @@ export class ClinicUseCase {
             const validateCep = await this.ivalidateCep.validate(newAddress.cep)
             if (!validateCep) throw new Error('CEP not found')
 
-           
-            const validateCnpj = await this.ivalidateCnpj.validateCnpjInterface(cnpj)
-            if(!validateCnpj) throw new Error('CNPJ not found')
-            
-            const address = await this.iSaveAddress.saveAddress(newAddress)
 
+            const validateCnpj = await this.ivalidateCnpj.validateCnpjInterface(cnpj)
+            if (!validateCnpj) throw new Error('CNPJ not found')
+
+            const address = await this.iSaveAddress.saveAddress(newAddress)
             if (!address) throw new Error('Unable to save address')
 
             const newClinic = new Clinic({
                 adressId: address.id as string,
                 name,
                 cnpj,
-                phone
+                phone,
+                password
             })
             const clinic = await this.iclinicSave.save(newClinic)
             return new Clinic({
@@ -64,10 +63,11 @@ export class ClinicUseCase {
                 name: clinic.name,
                 id: clinic.id,
                 cnpj: clinic.cnpj,
-                phone:clinic.phone
+                phone: clinic.phone,
+                password: clinic.password
             }, clinic.id)
 
-        } catch (error){
+        } catch (error) {
             let errorMessage = "Failed to do something exceptional";
             if (error instanceof Error) {
                 errorMessage = error.message;

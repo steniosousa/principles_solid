@@ -1,10 +1,10 @@
 import { z } from "zod";
 
-export const createDentistSchema = z.object({
+export const listDentistSchema = z.object({
     name: z.string(),
     password: z.string(),
     email: z.string().email(),
     clinicId: z.string(),
-    room: z.number()
+    room: z.string()
 
 })

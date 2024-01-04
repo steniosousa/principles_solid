@@ -61,7 +61,7 @@ routes.patch('/customer', (req: any, res: Response, next: NextFunction) => AuthM
 
 
 //routes for clinic
-routes.post('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(clinicCreateDTO), (req, res) => createClinic.execute(req, res))
+routes.post('/create/clinic', schemaValidator(clinicCreateDTO), (req, res) => createClinic.execute(req, res))
 routes.delete('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(deleteClinicSchema), (req, res) => deleteClinic.execute(req, res))
 routes.patch('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateClinicSchema), (req, res) => updateClinic.execute(req, res))
 routes.get('/clinic/list', (req, res) => listClinics.execute(req, res))
@@ -69,11 +69,11 @@ routes.get('/clinic/list', (req, res) => listClinics.execute(req, res))
 
 //routes for address
 routes.patch('/address', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateAddressSchema), (req, res) => UpdateAddress.execute(req, res))
-routes.post('/address/validate-cep', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(addressValidateSchema), (req, res) => validateCep.execute(req, res))
+routes.post('/address/validate-cep', schemaValidator(addressValidateSchema), (req, res) => validateCep.execute(req, res))
 
 
 //routes for dentist
-routes.post('/dentist', schemaValidator(createDentistSchema), (req, res) => CreateDentist.execute(req, res))
+routes.post('create/dentist', schemaValidator(createDentistSchema), (req, res) => CreateDentist.execute(req, res))
 
 
 routes.post('/service', schemaValidator(serviceCreateDTO), (req, res) => createService.execute(req, res))

@@ -10,11 +10,8 @@ export class Dentist {
 
     constructor(props: Dentist, id?: string) {
         Object.assign(this, props)
-
         if (!id) {
             id = uuidv4()
         }
     }
-
-
 }   

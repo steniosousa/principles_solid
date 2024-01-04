@@ -47,7 +47,8 @@ export class create implements findByEmail, createDentist, findById {
                 cnpj: response.cnpj,
                 name: response.name,
                 phone: response.phone,
-                id: response.id
+                id: response.id,
+                password: response.id
             })
             return clinicAlreadyExist
 

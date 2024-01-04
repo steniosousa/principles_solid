@@ -1,14 +1,10 @@
-import { JsonServerCreateCustomer } from "../../respositories/implementation/customer/json.server.customer";
-import { Login } from "../../respositories/contracts/login/login";
+import { LoginUserOrClinic } from "../../respositories/implementation/login/login";
 import { loginController } from "../../useCase/login/login.controller";
 import { LoginUseCase } from "../../useCase/login/login.useCase";
-import { JwtSecretToken } from "../../respositories/contracts/login/jwt.secret";
 
 export function LoginFactore() {
-    const iLogin = new Login()
-    const IjwtToken = new JwtSecretToken()
-    const iFindByEmail = new JsonServerCreateCustomer()
-    const loginUseCase = new LoginUseCase(iLogin, iFindByEmail, IjwtToken)
+    const iImplementation = new LoginUserOrClinic()
+    const loginUseCase = new LoginUseCase(iImplementation, iImplementation, iImplementation)
     const iloginController = new loginController(loginUseCase)
     return iloginController
 }

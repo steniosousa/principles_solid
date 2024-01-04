@@ -9,7 +9,7 @@ import { ValidateCep } from "../../contracts/address/valid.cep";
 import { cnpj } from 'cpf-cnpj-validator';
 import { validateCnpj } from "../../contracts/clinic/validate.cnpj";
 import { prisma } from "../../prisma/prisma.service";
-
+import bcrypt from 'bcryptjs'
 export class ClinicCreateImplementation implements findAddress, clinicSave, findByName, addressSave, ValidateCep, validateCnpj {
 
     async findAddress(cep: string, street: string, number: number): Promise<Address | null> {
@@ -37,16 +37,21 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                     name
                 }
             })
-            const returnClinic = new Clinic({
-                adressId: addressAlreadyExist.addresId,
-                cnpj: addressAlreadyExist.cnpj,
-                name: addressAlreadyExist.name,
-                phone: addressAlreadyExist.phone,
-                id: addressAlreadyExist.id
-            })
-            return returnClinic
+            if (addressAlreadyExist) {
+                const returnClinic = new Clinic({
+                    adressId: addressAlreadyExist.addresId,
+                    cnpj: addressAlreadyExist.cnpj,
+                    name: addressAlreadyExist.name,
+                    phone: addressAlreadyExist.phone,
+                    id: addressAlreadyExist.id,
+                    password: addressAlreadyExist.password
+                })
+                return returnClinic
+            }
+            return null
 
         } catch (error) {
+
             let message;
             if (error instanceof Error) {
                 message = error.message
@@ -71,13 +76,13 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
     }
 
     async validateCnpjInterface(cnpjRe: string): Promise<any> {
-        try{
+        try {
             const validate = cnpj.isValid(cnpjRe);
             return validate
-            
-        }catch(error){
+
+        } catch (error) {
             let message;
-            if(error instanceof Error){
+            if (error instanceof Error) {
                 message = error.message
             }
             throw new Error(message)
@@ -87,11 +92,13 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
 
     async save(clinic: Clinic): Promise<Clinic> {
         try {
+            const hashPassword = await bcrypt.hash(clinic.password, 10)
             const newClinic = new Clinic({
                 adressId: clinic.adressId,
                 name: clinic.name,
                 cnpj: clinic.cnpj,
-                phone: clinic.phone
+                phone: clinic.phone,
+                password: hashPassword
             })
             const newClinicSave = await prisma.clinic.create({
                 data: {
@@ -99,7 +106,8 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                     addresId: newClinic.adressId,
                     name: newClinic.name,
                     cnpj: newClinic.cnpj,
-                    phone: newClinic.phone
+                    phone: newClinic.phone,
+                    password: newClinic.password
                 }
             })
             const returnNewClinic: Clinic = new Clinic({
@@ -107,7 +115,8 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 cnpj: newClinicSave.cnpj,
                 name: newClinicSave.name,
                 phone: newClinicSave.phone,
-                id: newClinicSave.id
+                id: newClinicSave.id,
+                password: newClinicSave.password
             })
             return returnNewClinic
         } catch (error) {

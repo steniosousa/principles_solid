@@ -11,8 +11,7 @@ export class useCase {
         private readonly createDentist: createDentist
     ) { }
 
-    async execute(req: Request) {
-        const { email, name, password, clinicId } = req.body
+    async execute(email: string, name: string, password: string, clinicId: string, room: number) {
         try {
             const dentistAlreadyExist = await this.findByEmailDentist.findDentis(email)
             if (dentistAlreadyExist) throw new Error('Professional already exist')
@@ -25,7 +24,8 @@ export class useCase {
                 email,
                 name,
                 password,
-                clinicId
+                clinicId,
+                room
             })
 
             await this.createDentist.create(newDentist)

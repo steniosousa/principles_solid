@@ -55,6 +55,7 @@ export class JsonServerCreateCustomer implements saveCustomer, FindByEmailReposi
                 cnpj: response.cnpj,
                 name: response.name,
                 phone: response.phone,
+                password:response.password,
                 id: response.id
             })
             return returClini
