@@ -97,7 +97,6 @@ export class create implements findByEmail, createDentist, findClinicById, findR
             } return null
 
         } catch (error) {
-            console.log(error)
             let message;
             if (error instanceof ZodError) {
                 message = error.message

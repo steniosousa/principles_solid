@@ -1,5 +1,6 @@
 import { Clinic } from "../../../entities/clinic";
 import { Dentist } from "../../../entities/dentist";
+import { findByCNPJ } from "../../contracts/clinic/findByCNPJ";
 import { findByEmail } from "../../contracts/dentist/findByEmail";
 import { JwtContract } from "../../contracts/login/jwt.contract";
 import { LoginContract } from "../../contracts/login/login.contract";
@@ -8,29 +9,55 @@ import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 
 
-export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContract {
-    async findDentis(email: string): Promise<Clinic | Dentist> {
+export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContract, findByCNPJ {
+    async findDentis(email: string): Promise<Dentist> {
+        
         try {
-            const responseClinic = await prisma.clinic.findFirst({
-                where: {
-                    cnpj: email
-                }
-            })
 
-            if (responseClinic) {
-                const returNewAddress: any = responseClinic
-                return returNewAddress
-            }
             const reponseDentist = await prisma.doctor.findFirst({
                 where: {
                     email
                 }
             })
+
             if (reponseDentist) {
-                const returNewAddress: any = reponseDentist
+                const returNewAddress = new Dentist({
+                    clinicId: reponseDentist.clinicId,
+                    email: reponseDentist.email,
+                    firstAccess: reponseDentist.firstAccess,
+                    name: reponseDentist.name,
+                    password: reponseDentist.password,
+                    room: reponseDentist.room,
+                    id: reponseDentist.id
+                })
                 return returNewAddress
             }
             return null
+        }
+        catch (error) {
+            throw new Error('Usuário não encontrado')
+        }
+    }
+
+    async findClinic(cnpj: string): Promise<Clinic> {
+        try {
+            const responseClinic = await prisma.clinic.findFirst({
+                where: {
+                    cnpj
+                }
+            })
+
+            if (responseClinic) {
+                const returNewAddress = new Clinic({
+                    adressId: responseClinic.addresId,
+                    cnpj: responseClinic.cnpj,
+                    name: responseClinic.name,
+                    password: responseClinic.password,
+                    phone: responseClinic.phone,
+                    id: responseClinic.id
+                })
+                return returNewAddress
+            }
         }
         catch (error) {
             throw new Error('Usuário não encontrado')
