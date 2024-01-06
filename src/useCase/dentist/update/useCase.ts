@@ -1,3 +1,4 @@
+import { findDentistById } from "../../../respositories/contracts/dentist/findById"
 import { updateDentist } from "../../../respositories/contracts/dentist/update"
 
 interface body {
@@ -8,11 +9,16 @@ interface body {
 }
 export class UpdateDentistUseCase {
     constructor(
-        private readonly iUpdate: updateDentist
+        private readonly iUpdate: updateDentist,
+        private readonly ifindDentistById: findDentistById
     ) { }
 
     async execute(body: body, doctorId: string) {
         try {
+            const verifyFirstAccess = await this.ifindDentistById.findById(doctorId)
+            if (verifyFirstAccess.firstAccess && !body.password) {
+                throw new Error("Informe nova senha para validar alteração")
+            }
             const updateDoctor = await this.iUpdate.update(body, doctorId)
             return updateDoctor
 

@@ -28,7 +28,8 @@ export class useCase {
                 room,
                 password: foundClinic.cnpj,
                 name: `Usuário ${numberRandom.toFixed(0)} `,
-                firstAccess: true
+                firstAccess: true,
+                phone: ''
             })
 
             return createDentist

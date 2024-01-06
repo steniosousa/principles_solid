@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { UpdateDentistUseCase } from "./useCase";
 
-export class controller {
+export class updateDentistController {
     constructor(private readonly iUseCase: UpdateDentistUseCase) { }
 
     async execute(req: any, res: Response) {

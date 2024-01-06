@@ -51,6 +51,7 @@ model Doctor {
   email       String
   password    String
   room        Int
+  phone       String  @default("")
   firstAccess Boolean @default(true)
 
   clinic         Clinic          @relation(fields: [clinicId], references: [id])

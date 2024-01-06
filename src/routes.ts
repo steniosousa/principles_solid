@@ -28,6 +28,8 @@ import { ListServiceFactore } from './factories/service/list'
 import { UpdateService } from './factories/service/update'
 import { serviceUpdateDTO } from './useCase/service/edit/dto'
 import { ListDentist } from './factories/dentist/list'
+import { findDentist } from './factories/dentist/find'
+import { updateDentist } from './factories/dentist/update'
 
 const routes = Router()
 
@@ -49,6 +51,8 @@ const validateCep = AddressValidate()
 
 const CreateDentist = createDentist()
 const recoverDentist = ListDentist()
+const ifindDentist = findDentist()
+const iupdateDentist = updateDentist()
 
 const createService = createServiceFactore()
 const listService = ListServiceFactore()
@@ -77,6 +81,9 @@ routes.post('/address/validate-cep', schemaValidator(addressValidateSchema), (re
 //routes for dentist
 routes.post('/create/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(createDentistSchema), (req, res) => CreateDentist.execute(req, res))
 routes.get('/recover/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => recoverDentist.execute(req, res))
+routes.get('/find/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => ifindDentist.execute(req, res))
+routes.post('/update/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => iupdateDentist.execute(req, res))
+
 
 routes.post('/service', schemaValidator(serviceCreateDTO), (req, res) => createService.execute(req, res))
 routes.get('/service/list', schemaValidator(serviceListDTO), (req, res) => listService.execute(req, res))

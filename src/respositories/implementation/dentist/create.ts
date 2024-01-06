@@ -27,7 +27,8 @@ export class create implements findByEmail, createDentist, findClinicById, findR
                     password: response.password,
                     id: response.id,
                     room: response.room,
-                    firstAccess: response.firstAccess
+                    firstAccess: response.firstAccess,
+                    phone: response.phone
                 })
                 return dentistAlreadyExist
             }
@@ -79,7 +80,8 @@ export class create implements findByEmail, createDentist, findClinicById, findR
                     clinicId: datas.clinicId,
                     email: datas.email,
                     password: hashPassword,
-                    room: datas.room
+                    room: datas.room,
+                    phone: datas.phone
                 }
             })
             if (response) {
@@ -90,14 +92,15 @@ export class create implements findByEmail, createDentist, findClinicById, findR
                     password: response.password,
                     id: response.id,
                     room: response.room,
-                    firstAccess: response.firstAccess
+                    firstAccess: response.firstAccess,
+                    phone: response.phone
                 })
                 return newDentist
 
             } return null
 
         } catch (error) {
-            let message;
+            let message = "Erro";
             if (error instanceof ZodError) {
                 message = error.message
             }
