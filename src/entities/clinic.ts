@@ -7,6 +7,7 @@ export class Clinic {
     public cnpj:string = ''
     public phone:string = ''
     public password:string = ''
+    public email: string = ''
     constructor(props: Clinic, id?: string) {
         Object.assign(this, props)
 

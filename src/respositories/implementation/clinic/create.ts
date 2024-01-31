@@ -44,7 +44,8 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                     name: addressAlreadyExist.name,
                     phone: addressAlreadyExist.phone,
                     id: addressAlreadyExist.id,
-                    password: addressAlreadyExist.password
+                    password: addressAlreadyExist.password,
+                    email:addressAlreadyExist.email
                 })
                 return returnClinic
             }
@@ -99,6 +100,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 cnpj: clinic.cnpj,
                 phone: clinic.phone,
                 password: hashPassword,
+                email:clinic.email
 
             })
             const newClinicSave = await prisma.clinic.create({
@@ -109,6 +111,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                     cnpj: newClinic.cnpj,
                     phone: newClinic.phone,
                     password: newClinic.password,
+                    email:newClinic.email
                 }
             })
             const returnNewClinic: Clinic = new Clinic({
@@ -117,7 +120,8 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 name: newClinicSave.name,
                 phone: newClinicSave.phone,
                 id: newClinicSave.id,
-                password: newClinicSave.password
+                password: newClinicSave.password,
+                email:newClinicSave.email
             })
             return returnNewClinic
         } catch (error) {

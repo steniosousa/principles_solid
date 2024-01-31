@@ -27,6 +27,7 @@ model Clinic {
   phone     String
   password  String
   addresId  String
+  email     String      @unique
   address   Address     @relation(fields: [addresId], references: [id])
   doctors   Doctor[]
   services  Services[]

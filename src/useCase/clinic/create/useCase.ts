@@ -20,8 +20,7 @@ export class ClinicUseCase {
 
     async execute(req: Request) {
         try {
-            const { name, cep, street, number, district, city, country, cnpj, phone, password } = req.body
-
+            const { name, cep, street, number, district, city, country, cnpj, phone, password, email } = req.body
             const clinicAlreadyExist = await this.iFindByName.findClinic(name)
 
             if (clinicAlreadyExist) {
@@ -55,7 +54,8 @@ export class ClinicUseCase {
                 name,
                 cnpj,
                 phone,
-                password
+                password,
+                email,
             })
             const clinic = await this.iclinicSave.save(newClinic)
             return new Clinic({
@@ -64,7 +64,8 @@ export class ClinicUseCase {
                 id: clinic.id,
                 cnpj: clinic.cnpj,
                 phone: clinic.phone,
-                password: clinic.password
+                password: clinic.password,
+                email: clinic.email
             }, clinic.id)
 
         } catch (error) {

@@ -12,21 +12,32 @@ export class LoginUseCase {
 
     ) { }
     async execute(password: string, email: string) {
-
         const accountExist = await this.findByEmail.findDentis(email)
         const foundClinicWithCNPJ = await this.findByCNPJ.findClinic(email)
-        if (!accountExist && !foundClinicWithCNPJ) throw new Error('Email ou senha inválidos')
-        const customerLogin = await this.login.login(accountExist.password, password)
-        if (!customerLogin) throw new Error("Email ou senha inválidos")
-        const webToken = await this.jwt.sign(accountExist.id as string)
-
-        if (accountExist.firstAccess) {
-            const firstAccessUser = {
-                webToken,
-                firstAccess: accountExist.firstAccess
+        if (accountExist) {
+            const customerLogin = await this.login.login(accountExist.password, password)
+            if (!customerLogin) throw new Error("Email ou senha inválidos")
+            const webToken = await this.jwt.sign(accountExist.id as string)
+            if (accountExist.firstAccess) {
+                const firstAccessUser = {
+                    webToken,
+                    firstAccess: accountExist.firstAccess
+                }
+                return firstAccessUser
             }
-            return firstAccessUser
+            return webToken
+        } else if (foundClinicWithCNPJ) {
+            const clinicLogin = await this.login.login(foundClinicWithCNPJ.password, password)
+            if (!clinicLogin) throw new Error("Email ou senha inválidos")
+            const webToken = await this.jwt.sign(foundClinicWithCNPJ.id as string)
+
+
+            return webToken
         }
-        return webToken
+
+        else {
+
+            throw new Error('Email ou senha inválidos')
+        }
     }
 }
