@@ -28,7 +28,6 @@ export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContrac
                     name: reponseDentist.name,
                     password: reponseDentist.password,
                     room: reponseDentist.room,
-                    id: reponseDentist.id,
                     phone: reponseDentist.phone
                 })
                 return returNewAddress
@@ -55,18 +54,9 @@ export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContrac
                     }
                 })
             }
-
-            const returNewAddress = new Clinic({
-                adressId: responseClinic.addresId,
-                cnpj: responseClinic.cnpj,
-                name: responseClinic.name,
-                password: responseClinic.password,
-                phone: responseClinic.phone,
-                id: responseClinic.id,
-                email: responseClinic.email
-            })
-
-            return returNewAddress
+           
+            const newClinic: Clinic = responseClinic
+            return newClinic 
 
         }
         catch (error) {

@@ -2,9 +2,9 @@ import { listDentist } from "../../../respositories/contracts/dentist/list";
 
 export class ListDentistService {
     constructor(private readonly ilistDentist: listDentist) { }
-    async list(clinicId: string) {
+    async list(clinicId: string, page:number) {
         try {
-            const listDentists = await this.ilistDentist.list(clinicId)
+            const listDentists = await this.ilistDentist.list(clinicId,page)
             return listDentists
         } catch (error: unknown) {
 

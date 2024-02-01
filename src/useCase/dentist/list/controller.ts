@@ -5,7 +5,7 @@ export class ListDentistController {
     constructor(private readonly listDentist: ListDentistService) { }
     async execute(req: any, res: Response) {
         try {
-            const doctors = await this.listDentist.list(req.user.id)
+            const doctors = await this.listDentist.list(req.user.id, req.query.page)
             res.status(200).send(doctors)
         } catch (error) {
             let message = 'Error'

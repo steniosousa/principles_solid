@@ -39,7 +39,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
             })
             if (addressAlreadyExist) {
                 const returnClinic = new Clinic({
-                    adressId: addressAlreadyExist.addresId,
+                    addressId: addressAlreadyExist.addressId,
                     cnpj: addressAlreadyExist.cnpj,
                     name: addressAlreadyExist.name,
                     phone: addressAlreadyExist.phone,
@@ -95,7 +95,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
         try {
             const hashPassword = await bcrypt.hash(clinic.password, 10)
             const newClinic = new Clinic({
-                adressId: clinic.adressId,
+                addressId: clinic.addressId,
                 name: clinic.name,
                 cnpj: clinic.cnpj,
                 phone: clinic.phone,
@@ -106,7 +106,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
             const newClinicSave = await prisma.clinic.create({
                 data: {
                     id: newClinic.id,
-                    addresId: newClinic.adressId,
+                    addressId: newClinic.addressId,
                     name: newClinic.name,
                     cnpj: newClinic.cnpj,
                     phone: newClinic.phone,
@@ -115,7 +115,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 }
             })
             const returnNewClinic: Clinic = new Clinic({
-                adressId: newClinicSave.addresId,
+                addressId: newClinicSave.addressId,
                 cnpj: newClinicSave.cnpj,
                 name: newClinicSave.name,
                 phone: newClinicSave.phone,

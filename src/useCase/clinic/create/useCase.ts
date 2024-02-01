@@ -50,7 +50,7 @@ export class ClinicUseCase {
             if (!address) throw new Error('Unable to save address')
 
             const newClinic = new Clinic({
-                adressId: address.id as string,
+                addressId: address.id as string,
                 name,
                 cnpj,
                 phone,
@@ -59,7 +59,7 @@ export class ClinicUseCase {
             })
             const clinic = await this.iclinicSave.save(newClinic)
             return new Clinic({
-                adressId: clinic.adressId,
+                addressId: clinic.addressId,
                 name: clinic.name,
                 id: clinic.id,
                 cnpj: clinic.cnpj,

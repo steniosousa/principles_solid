@@ -2,25 +2,44 @@ import { listDentist } from "../../contracts/dentist/list";
 import { prisma } from "../../prisma/prisma.service";
 
 export class ListDentistImplementation implements listDentist {
-    async list(clinicId: string): Promise<any> {
+    async list(clinicId: string, page: number): Promise<any> {
         try {
-            const professioais = await prisma.clinic.findMany({
+            const totalRecords = await prisma.doctor.count({
                 where: {
-                    id: clinicId
+                  clinicId: clinicId,
+                },
+              });
+              
+              const professionals = await prisma.doctor.findMany({
+                where: {
+                  clinicId: clinicId,
                 },
                 select: {
-                    doctors: {
-                        select: {
-                            _count: true,
-                            name: true,
-                            room: true,
-                        },
-                    }
+                  name: true,
+                  phone: true,
+                  doctorServices: {
+                    include: {
+                      service: true,
+                    },
+                  },
+                  room: true,
+                  id: true,
+                  appointments: true,
                 },
-                take: 5
-            })
-            if (!professioais) return null
-            return professioais
+                orderBy: {
+                  name: "asc",
+                },
+                skip: (page - 1) * 5,
+                take: 5,
+              });
+              
+              if (!professionals) return null;
+              
+              return {
+                professionals: professionals,
+                totalRecords: totalRecords,
+              };
+              
         } catch (error: unknown) {
 
             let message = "Não foi possível listar profissional"

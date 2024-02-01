@@ -30,6 +30,7 @@ import { serviceUpdateDTO } from './useCase/service/edit/dto'
 import { ListDentist } from './factories/dentist/list'
 import { findDentist } from './factories/dentist/find'
 import { updateDentist } from './factories/dentist/update'
+import { listDentistSchema } from './useCase/dentist/list/dto'
 
 const routes = Router()
 

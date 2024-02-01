@@ -17,6 +17,7 @@ export class useCase {
             if (dentistAlreadyExist) throw new Error('Profissional já registrado')
 
             const foundClinic = await this.findClinicById.find(req.user.id)
+
             if (!foundClinic) throw new Error('Clinica não existe')
 
             const findRoomInUse = await this.ifindRoom.findRoom(room, req.user.id)

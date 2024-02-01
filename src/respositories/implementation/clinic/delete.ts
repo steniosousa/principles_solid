@@ -1,9 +1,9 @@
 import { deleteClinic } from "../../contracts/clinic/delete";
-import { findById } from "../../contracts/clinic/findById";
 import { Clinic } from "../../../entities/clinic";
 import { prisma } from "../../prisma/prisma.service";
+import { findClinicById } from "../../contracts/clinic/findById";
 
-export class deleteClinicImplementation implements findById, deleteClinic {
+export class deleteClinicImplementation implements findClinicById, deleteClinic {
     async find(id: string): Promise<Clinic> {
         try{
             const search = await prisma.clinic.findUnique({
@@ -12,11 +12,13 @@ export class deleteClinicImplementation implements findById, deleteClinic {
                 }
             })
             const response: Clinic = new Clinic({
-                adressId:search.addresId,
+                addressId:search.addressId,
                 cnpj:search.cnpj,
                 name:search.name,
                 phone:search.phone,
-                id:search.id
+                id:search.id,
+                email:search.email,
+                password:search.password
             })
     
             return response

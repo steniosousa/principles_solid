@@ -26,9 +26,9 @@ model Clinic {
   cnpj      String
   phone     String
   password  String
-  addresId  String
+  addressId  String
   email     String      @unique
-  address   Address     @relation(fields: [addresId], references: [id])
+  address   Address     @relation(fields: [addressId], references: [id])
   doctors   Doctor[]
   services  Services[]
   customers Customers[]
