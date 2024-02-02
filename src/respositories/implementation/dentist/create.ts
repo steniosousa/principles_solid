@@ -28,7 +28,8 @@ export class create implements findByEmail, createDentist, findClinicById, findR
                     id: response.id,
                     room: response.room,
                     firstAccess: response.firstAccess,
-                    phone: response.phone
+                    phone: response.phone,
+                    photo:response.photo
                 })
                 return dentistAlreadyExist
             }
@@ -94,7 +95,8 @@ export class create implements findByEmail, createDentist, findClinicById, findR
                     id: response.id,
                     room: response.room,
                     firstAccess: response.firstAccess,
-                    phone: response.phone
+                    phone: response.phone,
+                    photo:response.photo
                 })
                 return newDentist
 

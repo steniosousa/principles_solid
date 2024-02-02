@@ -7,6 +7,7 @@ export class Dentist {
     public name: string = ''
     public clinicId: string = ''
     public password: string = ''
+    public photo: String = ""
     public firstAccess: boolean
     public phone: string = ''
     constructor(props: Dentist, id?: string) {

@@ -45,7 +45,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                     phone: addressAlreadyExist.phone,
                     id: addressAlreadyExist.id,
                     password: addressAlreadyExist.password,
-                    email:addressAlreadyExist.email
+                    email: addressAlreadyExist.email
                 })
                 return returnClinic
             }
@@ -91,7 +91,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
 
     }
 
-    async save(clinic: Clinic): Promise<Clinic> {
+    async save(clinic: Clinic, addressId: string): Promise<Clinic> {
         try {
             const hashPassword = await bcrypt.hash(clinic.password, 10)
             const newClinic = new Clinic({
@@ -100,7 +100,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 cnpj: clinic.cnpj,
                 phone: clinic.phone,
                 password: hashPassword,
-                email:clinic.email
+                email: clinic.email
 
             })
             const newClinicSave = await prisma.clinic.create({
@@ -111,7 +111,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                     cnpj: newClinic.cnpj,
                     phone: newClinic.phone,
                     password: newClinic.password,
-                    email:newClinic.email
+                    email: newClinic.email
                 }
             })
             const returnNewClinic: Clinic = new Clinic({
@@ -121,14 +121,17 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 phone: newClinicSave.phone,
                 id: newClinicSave.id,
                 password: newClinicSave.password,
-                email:newClinicSave.email
+                email: newClinicSave.email
             })
             return returnNewClinic
         } catch (error) {
-            let message;
-            if (error instanceof Error) {
-                message = error.message
-            }
+            await prisma.address.delete({
+                where: {
+                    id: addressId
+                }
+            })
+            let message="Não foi possível executar operação";
+            
             throw new Error(message)
         }
 
@@ -141,7 +144,7 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 cep: address.cep,
                 city: address.city,
                 country: address.country,
-                district: address.country,
+                district: address.district,
                 number: address.number,
                 street: address.street,
             })

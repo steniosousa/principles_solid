@@ -11,15 +11,12 @@ import jwt from 'jsonwebtoken'
 
 export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContract, findByCNPJ {
     async findDentis(email: string): Promise<Dentist> {
-
         try {
-
             const reponseDentist = await prisma.doctor.findFirst({
                 where: {
                     email
                 }
             })
-
             if (reponseDentist) {
                 const returNewAddress = new Dentist({
                     clinicId: reponseDentist.clinicId,
@@ -29,7 +26,8 @@ export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContrac
                     password: reponseDentist.password,
                     room: reponseDentist.room,
                     phone: reponseDentist.phone,
-                    id:reponseDentist.id
+                    id:reponseDentist.id,
+                    photo:reponseDentist.photo
                 })
                 return returNewAddress
             }

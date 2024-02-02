@@ -26,7 +26,7 @@ model Clinic {
   cnpj      String
   phone     String
   password  String
-  addressId  String
+  addressId String
   email     String      @unique
   address   Address     @relation(fields: [addressId], references: [id])
   doctors   Doctor[]
@@ -54,6 +54,7 @@ model Doctor {
   room        Int
   phone       String  @default("")
   firstAccess Boolean @default(true)
+  photo       String  @default("")
 
   clinic         Clinic          @relation(fields: [clinicId], references: [id])
   appointments   Appointment[]

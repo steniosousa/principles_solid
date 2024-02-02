@@ -57,16 +57,8 @@ export class ClinicUseCase {
                 password,
                 email,
             })
-            const clinic = await this.iclinicSave.save(newClinic)
-            return new Clinic({
-                addressId: clinic.addressId,
-                name: clinic.name,
-                id: clinic.id,
-                cnpj: clinic.cnpj,
-                phone: clinic.phone,
-                password: clinic.password,
-                email: clinic.email
-            }, clinic.id)
+            const clinic = await this.iclinicSave.save(newClinic,address.id)
+            return clinic
 
         } catch (error) {
             let errorMessage = "Failed to do something exceptional";
