@@ -28,7 +28,8 @@ export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContrac
                     name: reponseDentist.name,
                     password: reponseDentist.password,
                     room: reponseDentist.room,
-                    phone: reponseDentist.phone
+                    phone: reponseDentist.phone,
+                    id:reponseDentist.id
                 })
                 return returNewAddress
             }

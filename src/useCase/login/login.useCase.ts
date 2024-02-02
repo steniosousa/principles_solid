@@ -31,10 +31,8 @@ export class LoginUseCase {
             if (!clinicLogin) throw new Error("Email ou senha inválidos")
             const webToken = await this.jwt.sign(foundClinicWithCNPJ.id as string)
 
-
             return webToken
         }
-
         else {
 
             throw new Error('Email ou senha inválidos')

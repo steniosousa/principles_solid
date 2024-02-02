@@ -69,13 +69,13 @@ routes.patch('/customer', (req: any, res: Response, next: NextFunction) => AuthM
 
 //routes for clinic
 routes.post('/create/clinic', schemaValidator(clinicCreateDTO), (req, res) => createClinic.execute(req, res))
-routes.delete('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(deleteClinicSchema), (req, res) => deleteClinic.execute(req, res))
+routes.delete('/clinic/delete', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(deleteClinicSchema), (req, res) => deleteClinic.execute(req, res))
 routes.patch('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateClinicSchema), (req, res) => updateClinic.execute(req, res))
-routes.get('/clinic/list', (req, res) => listClinics.execute(req, res))
+routes.get('/clinic/list',  (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),(req, res) => listClinics.execute(req, res))
 
 
 //routes for address
-routes.patch('/address', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateAddressSchema), (req, res) => UpdateAddress.execute(req, res))
+routes.patch('/address/update', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateAddressSchema), (req, res) => UpdateAddress.execute(req, res))
 routes.post('/address/validate-cep', schemaValidator(addressValidateSchema), (req, res) => validateCep.execute(req, res))
 
 
@@ -83,12 +83,12 @@ routes.post('/address/validate-cep', schemaValidator(addressValidateSchema), (re
 routes.post('/create/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(createDentistSchema), (req, res) => CreateDentist.execute(req, res))
 routes.get('/recover/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => recoverDentist.execute(req, res))
 routes.get('/find/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => ifindDentist.execute(req, res))
-routes.post('/update/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => iupdateDentist.execute(req, res))
+routes.patch('/update/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => iupdateDentist.execute(req, res))
 
 
-routes.post('/service', schemaValidator(serviceCreateDTO), (req, res) => createService.execute(req, res))
-routes.get('/service/list', schemaValidator(serviceListDTO), (req, res) => listService.execute(req, res))
-routes.post('/service/update', schemaValidator(serviceUpdateDTO), (req, res) => editService.execute(req, res))
+routes.post('/service/create',  (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),(req, res) => createService.execute(req, res))
+routes.get('/service/list',  (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),schemaValidator(serviceListDTO), (req, res) => listService.execute(req, res))
+routes.post('/service/update',  (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),schemaValidator(serviceUpdateDTO), (req, res) => editService.execute(req, res))
 export { routes }
 
 

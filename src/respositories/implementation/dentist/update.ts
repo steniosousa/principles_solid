@@ -37,6 +37,7 @@ export class UpdateDentist implements updateDentist, findDentistById {
         }
     }
     async findById(id: string): Promise<Partial<Dentist>> {
+        console.log(id)
 
         try {
             const founDoctor = await prisma.doctor.findUnique({

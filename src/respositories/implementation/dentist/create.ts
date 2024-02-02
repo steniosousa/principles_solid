@@ -53,11 +53,12 @@ export class create implements findByEmail, createDentist, findClinicById, findR
             if (response) {
                 const clinicAlredyExist: Clinic = new Clinic({
                     cnpj: response.cnpj,
-                    adressId: response.addresId,
+                    addressId: response.addressId,
                     name: response.name,
                     password: response.password,
                     phone: response.phone,
-                    id: response.id
+                    id: response.id,
+                    email: response.email
                 })
                 return clinicAlredyExist
 
@@ -100,7 +101,7 @@ export class create implements findByEmail, createDentist, findClinicById, findR
             } return null
 
         } catch (error) {
-            let message = "Erro";
+            let message = "erro";
             if (error instanceof ZodError) {
                 message = error.message
             }

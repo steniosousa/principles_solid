@@ -64,9 +64,9 @@ model Services {
   id       String @id @default(uuid())
   name     String
   cost     String
-  ClinicId String
+  clinicId String
 
-  clinic         Clinic          @relation(fields: [ClinicId], references: [id])
+  clinic         Clinic          @relation(fields: [clinicId], references: [id])
   doctorServices DoctorService[]
 }
 

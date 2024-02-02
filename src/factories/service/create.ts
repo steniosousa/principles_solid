@@ -4,7 +4,7 @@ import { serviceUseCase } from "../../useCase/service/create/useCase";
 
 export function createServiceFactore() {
     const iImplementation = new createServiceImplementation()
-    const iUseCase = new serviceUseCase(iImplementation, iImplementation)
+    const iUseCase = new serviceUseCase(iImplementation, iImplementation, iImplementation)
     const iController = new serviceController(iUseCase)
     return iController
 }

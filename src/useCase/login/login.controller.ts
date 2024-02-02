@@ -6,7 +6,6 @@ export class loginController {
 
     async execute(req: Request, res: Response) {
         const { password, email } = req.body
-
         try {
             const login = await this.loginUseCase.execute(password, email)
             res.status(200).send(login)

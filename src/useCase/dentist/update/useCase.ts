@@ -16,6 +16,7 @@ export class UpdateDentistUseCase {
     async execute(body: body, doctorId: string) {
         try {
             const verifyFirstAccess = await this.ifindDentistById.findById(doctorId)
+            console.log(verifyFirstAccess)
             if (verifyFirstAccess.firstAccess && !body.password) {
                 throw new Error("Informe nova senha para validar alteração")
             }
