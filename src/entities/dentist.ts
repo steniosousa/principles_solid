@@ -9,6 +9,7 @@ export class Dentist {
     public password: string = ''
     public photo: String = ""
     public firstAccess: boolean
+    public bio: string = ''
     public phone: string = ''
     constructor(props: Dentist, id?: string) {
         Object.assign(this, props)

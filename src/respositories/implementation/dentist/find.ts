@@ -14,6 +14,13 @@ export class FindDentistById implements findDentistById {
                     name: true,
                     phone: true,
                     email: true,
+                    photo: true,
+                    _count:{
+                        select:{
+                            appointments:true,
+                            doctorServices:true
+                        }
+                    },
                 }
             })
             if (!foundDentist) return null

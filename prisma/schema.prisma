@@ -52,6 +52,7 @@ model Doctor {
   email       String
   password    String
   room        Int
+  bio         String
   phone       String  @default("")
   firstAccess Boolean @default(true)
   photo       String  @default("")

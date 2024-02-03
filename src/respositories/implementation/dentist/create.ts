@@ -29,7 +29,8 @@ export class create implements findByEmail, createDentist, findClinicById, findR
                     room: response.room,
                     firstAccess: response.firstAccess,
                     phone: response.phone,
-                    photo:response.photo
+                    photo: response.photo,
+                    bio: response.bio
                 })
                 return dentistAlreadyExist
             }
@@ -83,7 +84,8 @@ export class create implements findByEmail, createDentist, findClinicById, findR
                     email: datas.email,
                     password: hashPassword,
                     room: datas.room,
-                    phone: datas.phone
+                    phone: datas.phone,
+                    bio: ""
                 }
             })
             if (response) {
@@ -96,7 +98,8 @@ export class create implements findByEmail, createDentist, findClinicById, findR
                     room: response.room,
                     firstAccess: response.firstAccess,
                     phone: response.phone,
-                    photo:response.photo
+                    photo: response.photo,
+                    bio: response.bio
                 })
                 return newDentist
 

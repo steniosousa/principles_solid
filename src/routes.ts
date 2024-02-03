@@ -22,7 +22,6 @@ import { createDentist } from './factories/dentist/create'
 import { createDentistSchema } from './useCase/dentist/create/dto'
 import { ListClinic } from './factories/clinic/list'
 import { createServiceFactore } from './factories/service/create'
-import { serviceCreateDTO } from './useCase/service/create/dto'
 import { serviceListDTO } from './useCase/service/list/dto'
 import { ListServiceFactore } from './factories/service/list'
 import { UpdateService } from './factories/service/update'
@@ -30,7 +29,8 @@ import { serviceUpdateDTO } from './useCase/service/edit/dto'
 import { ListDentist } from './factories/dentist/list'
 import { findDentist } from './factories/dentist/find'
 import { updateDentist } from './factories/dentist/update'
-import { listDentistSchema } from './useCase/dentist/list/dto'
+import { updateImage } from './factories/dentist/updateImage'
+import { updateImageDentistSchema } from './useCase/dentist/updateImage/dto'
 
 const routes = Router()
 
@@ -54,6 +54,7 @@ const CreateDentist = createDentist()
 const recoverDentist = ListDentist()
 const ifindDentist = findDentist()
 const iupdateDentist = updateDentist()
+const iUpdateImageDentist = updateImage()
 
 const createService = createServiceFactore()
 const listService = ListServiceFactore()
@@ -71,7 +72,7 @@ routes.patch('/customer', (req: any, res: Response, next: NextFunction) => AuthM
 routes.post('/create/clinic', schemaValidator(clinicCreateDTO), (req, res) => createClinic.execute(req, res))
 routes.delete('/clinic/delete', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(deleteClinicSchema), (req, res) => deleteClinic.execute(req, res))
 routes.patch('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateClinicSchema), (req, res) => updateClinic.execute(req, res))
-routes.get('/clinic/list',  (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),(req, res) => listClinics.execute(req, res))
+routes.get('/clinic/list', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => listClinics.execute(req, res))
 
 
 //routes for address
@@ -84,11 +85,12 @@ routes.post('/create/dentist', (req: any, res: Response, next: NextFunction) => 
 routes.get('/recover/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => recoverDentist.execute(req, res))
 routes.get('/find/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => ifindDentist.execute(req, res))
 routes.patch('/update/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => iupdateDentist.execute(req, res))
+routes.patch('/update/image/dentist', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateImageDentistSchema), (req, res) => iUpdateImageDentist.execute(req, res))
 
 
-routes.post('/service/create',  (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),(req, res) => createService.execute(req, res))
-routes.get('/service/list',  (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),schemaValidator(serviceListDTO), (req, res) => listService.execute(req, res))
-routes.post('/service/update',  (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next),schemaValidator(serviceUpdateDTO), (req, res) => editService.execute(req, res))
+routes.post('/service/create', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => createService.execute(req, res))
+routes.get('/service/list', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(serviceListDTO), (req, res) => listService.execute(req, res))
+routes.post('/service/update', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(serviceUpdateDTO), (req, res) => editService.execute(req, res))
 export { routes }
 
 
