@@ -22,6 +22,8 @@ model Customers {
 
 model Clinic {
   id        String      @id @default(uuid())
+  bio       String
+  photo     String      @default("")
   name      String
   cnpj      String
   phone     String

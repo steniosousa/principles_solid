@@ -5,27 +5,29 @@ import { findClinicById } from "../../contracts/clinic/findById";
 
 export class deleteClinicImplementation implements findClinicById, deleteClinic {
     async find(id: string): Promise<Clinic> {
-        try{
+        try {
             const search = await prisma.clinic.findUnique({
-                where:{
+                where: {
                     id
                 }
             })
             const response: Clinic = new Clinic({
-                addressId:search.addressId,
-                cnpj:search.cnpj,
-                name:search.name,
-                phone:search.phone,
-                id:search.id,
-                email:search.email,
-                password:search.password
+                addressId: search.addressId,
+                cnpj: search.cnpj,
+                name: search.name,
+                phone: search.phone,
+                id: search.id,
+                email: search.email,
+                password: search.password,
+                bio: search.bio,
+                photo: search.photo
             })
-    
+
             return response
 
-        }catch(error){
+        } catch (error) {
             let message;
-            if(error instanceof Error){
+            if (error instanceof Error) {
                 message = error.message
             }
             throw new Error(message)
@@ -33,16 +35,16 @@ export class deleteClinicImplementation implements findClinicById, deleteClinic 
     }
 
     async delete(id: string): Promise<void> {
-        try{
+        try {
             await prisma.clinic.delete({
-                where:{
+                where: {
                     id
                 }
             })
 
-        }catch (error){
+        } catch (error) {
             let message;
-            if(error instanceof Error){
+            if (error instanceof Error) {
                 message = error.message
             }
             throw new Error(message)

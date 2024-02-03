@@ -4,10 +4,12 @@ export class Clinic {
     public readonly id?: string
     public name: string = ''
     public addressId: string = ''
-    public cnpj:string = ''
-    public phone:string = ''
-    public password:string = ''
+    public cnpj: string = ''
+    public phone: string = ''
+    public password: string = ''
     public email: string = ''
+    public bio: string = ''
+    public photo: string = ''
 
     constructor(props: Clinic, id?: string) {
         Object.assign(this, props)

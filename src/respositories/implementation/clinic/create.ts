@@ -45,7 +45,9 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                     phone: addressAlreadyExist.phone,
                     id: addressAlreadyExist.id,
                     password: addressAlreadyExist.password,
-                    email: addressAlreadyExist.email
+                    email: addressAlreadyExist.email,
+                    bio: addressAlreadyExist.bio,
+                    photo: addressAlreadyExist.photo
                 })
                 return returnClinic
             }
@@ -100,8 +102,9 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 cnpj: clinic.cnpj,
                 phone: clinic.phone,
                 password: hashPassword,
-                email: clinic.email
-
+                email: clinic.email,
+                bio: clinic.bio,
+                photo: clinic.photo
             })
             const newClinicSave = await prisma.clinic.create({
                 data: {
@@ -111,7 +114,8 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                     cnpj: newClinic.cnpj,
                     phone: newClinic.phone,
                     password: newClinic.password,
-                    email: newClinic.email
+                    email: newClinic.email,
+                    bio: newClinic.bio
                 }
             })
             const returnNewClinic: Clinic = new Clinic({
@@ -121,7 +125,9 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 phone: newClinicSave.phone,
                 id: newClinicSave.id,
                 password: newClinicSave.password,
-                email: newClinicSave.email
+                email: newClinicSave.email,
+                bio: newClinicSave.bio,
+                photo: newClinicSave.photo
             })
             return returnNewClinic
         } catch (error) {
@@ -130,8 +136,8 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                     id: addressId
                 }
             })
-            let message="Não foi possível executar operação";
-            
+            let message = "Não foi possível executar operação";
+
             throw new Error(message)
         }
 

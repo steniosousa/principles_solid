@@ -71,7 +71,7 @@ routes.patch('/customer', (req: any, res: Response, next: NextFunction) => AuthM
 //routes for clinic
 routes.post('/create/clinic', schemaValidator(clinicCreateDTO), (req, res) => createClinic.execute(req, res))
 routes.delete('/clinic/delete', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(deleteClinicSchema), (req, res) => deleteClinic.execute(req, res))
-routes.patch('/clinic', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateClinicSchema), (req, res) => updateClinic.execute(req, res))
+routes.patch('/clinic/update', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateClinicSchema), (req, res) => updateClinic.execute(req, res))
 routes.get('/clinic/list', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => listClinics.execute(req, res))
 
 

@@ -1,10 +1,10 @@
 import { Clinic } from "../../../entities/clinic";
-import { findById } from "../../contracts/clinic/findById";
+import { findClinicById } from "../../contracts/clinic/findById";
 import { updateClinic } from "../../contracts/clinic/update";
 import { prisma } from "../../prisma/prisma.service";
 import { ZodError } from "zod";
 
-export class update implements findById, updateClinic {
+export class update implements findClinicById, updateClinic {
     async find(id: string): Promise<Clinic> {
         try {
             const response = await prisma.clinic.findUnique({
@@ -14,11 +14,15 @@ export class update implements findById, updateClinic {
             })
 
             const clinicFound: Clinic = new Clinic({
-                adressId: response.addresId,
+                addressId: response.addressId,
                 cnpj: response.cnpj,
                 name: response.name,
                 phone: response.phone,
-                id: response.id
+                id: response.id,
+                bio: response.bio,
+                email: response.email,
+                password: response.password,
+                photo: response.photo
             })
             return clinicFound
 
@@ -46,11 +50,15 @@ export class update implements findById, updateClinic {
             })
 
             const returAfterUpdate: Clinic = new Clinic({
-                adressId: response.addresId,
+                addressId: response.addressId,
                 cnpj: response.cnpj,
                 name: response.name,
                 phone: response.phone,
-                id: response.id
+                id: response.id,
+                bio: response.bio,
+                email: response.email,
+                password: response.password,
+                photo: response.photo
             })
 
             return returAfterUpdate

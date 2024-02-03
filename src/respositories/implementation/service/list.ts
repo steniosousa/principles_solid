@@ -3,17 +3,17 @@ import { ListServiceContrat } from "../../contracts/service/list";
 import { prisma } from "../../prisma/prisma.service";
 
 export class ListServicesImplementation implements ListServiceContrat {
-    async List(ClinicId: string): Promise<Service[]> {
+    async List(clinicId: string): Promise<Service[]> {
         try {
             const list = await prisma.services.findMany({
                 where: {
-                    ClinicId
+                    clinicId
                 },
                 select: {
                     id: true,
                     name: true,
                     cost: true,
-                    ClinicId: true,
+                    clinicId: true,
                     doctorServices: {
                         include: {
                             doctor: true
@@ -22,7 +22,7 @@ export class ListServicesImplementation implements ListServiceContrat {
                 }
             })
             const allServices: Service[] = list.map((item) => ({
-                clinicId: item.ClinicId,
+                clinicId: item.clinicId,
                 cost: item.cost,
                 name: item.name,
                 id: item.id

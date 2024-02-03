@@ -18,20 +18,28 @@ export class LoginUseCase {
             const customerLogin = await this.login.login(accountExist.password, password)
             if (!customerLogin) throw new Error("Email ou senha inválidos")
             const webToken = await this.jwt.sign(accountExist.id as string)
+            const returnForFront = {
+                webToken,
+                role: "dentist"
+            }
             if (accountExist.firstAccess) {
                 const firstAccessUser = {
                     webToken,
-                    firstAccess: accountExist.firstAccess
+                    firstAccess: accountExist.firstAccess,
+                    role: "dentist"
                 }
                 return firstAccessUser
             }
-            return webToken
+            return returnForFront
         } else if (foundClinicWithCNPJ) {
             const clinicLogin = await this.login.login(foundClinicWithCNPJ.password, password)
             if (!clinicLogin) throw new Error("Email ou senha inválidos")
             const webToken = await this.jwt.sign(foundClinicWithCNPJ.id as string)
-
-            return webToken
+            const returnForFront = {
+                webToken,
+                role: "clinic"
+            }
+            return returnForFront
         }
         else {
 

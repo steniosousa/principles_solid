@@ -26,8 +26,9 @@ export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContrac
                     password: reponseDentist.password,
                     room: reponseDentist.room,
                     phone: reponseDentist.phone,
-                    id:reponseDentist.id,
-                    photo:reponseDentist.photo
+                    id: reponseDentist.id,
+                    photo: reponseDentist.photo,
+                    bio: reponseDentist.bio
                 })
                 return returNewAddress
             }
@@ -53,9 +54,9 @@ export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContrac
                     }
                 })
             }
-           
+
             const newClinic: Clinic = responseClinic
-            return newClinic 
+            return newClinic
 
         }
         catch (error) {

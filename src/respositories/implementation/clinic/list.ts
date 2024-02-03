@@ -13,11 +13,15 @@ export class ListClinics implements List {
             });
 
             const allClinics: Clinic[] = response.map((clinic) => ({
-                adressId: clinic.addresId,
+                addressId: clinic.addressId,
                 cnpj: clinic.cnpj,
                 name: clinic.name,
                 phone: clinic.phone,
-                id: clinic.id
+                id: clinic.id,
+                bio: clinic.bio,
+                email: clinic.email,
+                password: clinic.password,
+                photo: clinic.photo
             }));
 
             return allClinics;

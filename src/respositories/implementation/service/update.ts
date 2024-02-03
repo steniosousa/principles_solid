@@ -13,7 +13,7 @@ export class UpdateServiceImplementatio implements ListWithId, UpdateService {
                 }
             })
             const returnService = new Service({
-                clinicId: serviceFound.ClinicId,
+                clinicId: serviceFound.clinicId,
                 cost: serviceFound.cost,
                 name: serviceFound.name,
                 id: serviceFound.id

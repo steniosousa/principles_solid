@@ -15,6 +15,7 @@ export class FindDentistById implements findDentistById {
                     phone: true,
                     email: true,
                     photo: true,
+                    bio:true,
                     _count:{
                         select:{
                             appointments:true,

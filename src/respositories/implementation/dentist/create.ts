@@ -60,7 +60,9 @@ export class create implements findByEmail, createDentist, findClinicById, findR
                     password: response.password,
                     phone: response.phone,
                     id: response.id,
-                    email: response.email
+                    email: response.email,
+                    bio: response.bio,
+                    photo:response.photo
                 })
                 return clinicAlredyExist
 

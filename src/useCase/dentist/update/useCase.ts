@@ -21,7 +21,7 @@ export class UpdateDentistUseCase {
                 if (body[`${chave}`] == '') {
                     delete body[`${chave}`]
                 }
-              }
+            }
             const verifyFirstAccess = await this.ifindDentistById.findById(doctorId)
             if (verifyFirstAccess.firstAccess && !body.password) {
                 throw new Error("Informe nova senha para validar alteração")
