@@ -31,6 +31,10 @@ import { findDentist } from './factories/dentist/find'
 import { updateDentist } from './factories/dentist/update'
 import { updateImage } from './factories/dentist/updateImage'
 import { updateImageDentistSchema } from './useCase/dentist/updateImage/dto'
+import { updateImageClinc } from './factories/clinic/updateImage'
+import { createVacationFactore } from './factories/vacation/createVacation'
+import { createVocationDto } from './useCase/vacation/create/dto'
+import { findVacationFactore } from './factories/vacation/findVacation'
 
 const routes = Router()
 
@@ -44,6 +48,7 @@ const createClinic = ClinicCreate()
 const deleteClinic = DeleteClinic()
 const updateClinic = Update()
 const listClinics = ListClinic()
+const updateImageClinic = updateImageClinc()
 
 
 const UpdateAddress = updateAddress()
@@ -60,6 +65,9 @@ const createService = createServiceFactore()
 const listService = ListServiceFactore()
 const editService = UpdateService()
 
+
+const createVacation = createVacationFactore()
+const findVacation = findVacationFactore()
 routes.post('/login', schemaValidator(loginSchema), (req: Request, res: Response) => iLogin.execute(req, res))
 
 // routes for customer
@@ -73,6 +81,7 @@ routes.post('/create/clinic', schemaValidator(clinicCreateDTO), (req, res) => cr
 routes.delete('/clinic/delete', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(deleteClinicSchema), (req, res) => deleteClinic.execute(req, res))
 routes.patch('/clinic/update', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateClinicSchema), (req, res) => updateClinic.execute(req, res))
 routes.get('/clinic/list', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => listClinics.execute(req, res))
+routes.patch('/clinic/update/image/', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(updateImageDentistSchema), (req, res) => updateImageClinic.execute(req, res))
 
 
 //routes for address
@@ -91,6 +100,11 @@ routes.patch('/update/image/dentist', (req: any, res: Response, next: NextFuncti
 routes.post('/service/create', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => createService.execute(req, res))
 routes.get('/service/list', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(serviceListDTO), (req, res) => listService.execute(req, res))
 routes.post('/service/update', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(serviceUpdateDTO), (req, res) => editService.execute(req, res))
+
+
+routes.post('/vacation/create', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(createVocationDto), (req, res) => createVacation.execute(req, res))
+routes.get('/vacation/find', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(createVocationDto), (req, res) => findVacation.execute(req, res))
+
 export { routes }
 
 

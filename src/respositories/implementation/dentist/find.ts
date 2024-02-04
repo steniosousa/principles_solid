@@ -24,7 +24,6 @@ export class FindDentistById implements findDentistById {
                     },
                 }
             })
-            if (!foundDentist) return null
             return foundDentist
         } catch (error) {
             let message = "Erro";

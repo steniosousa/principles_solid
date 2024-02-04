@@ -17,6 +17,7 @@ export class ListDentistImplementation implements listDentist {
                 select: {
                   name: true,
                   phone: true,
+                  photo:true,
                   doctorServices: {
                     include: {
                       service: true,

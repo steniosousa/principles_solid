@@ -5,7 +5,6 @@ export class FindDentist {
     async execute(dentistId: string) {
         try {
             const foundDentist = await this.ifindDentistById.findById(dentistId)
-            if (!foundDentist) throw new Error("Profissional não encontrado")
             return foundDentist
         } catch (error: unknown) {
 
