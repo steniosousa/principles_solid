@@ -43,13 +43,18 @@ export class createServiceImplementation implements CreateService, FindService, 
         }
     }
 
-    async createService(service: Service, clinicId: string): Promise<Service> {
+    async createService(service: Service, clinicId: string, id: string): Promise<Service> {
         try {
             const createService = await prisma.services.create({
                 data: {
                     cost: service.cost,
                     name: service.name,
-                    clinicId
+                    clinicId,
+                    doctorServices: {
+                        create: {
+                            doctorId: id
+                        }
+                    }
                 }
             })
             const newService = new Service({

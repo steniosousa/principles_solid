@@ -16,7 +16,7 @@ export class createVacationImplementation implements createVacation {
             })
             return createVacation
         } catch (error) {
-            let message = "Não foi possível criar férias"
+            let message = "Não foi possível criar agenda"
             if (error instanceof ZodError) {
                 message = error.message
             }

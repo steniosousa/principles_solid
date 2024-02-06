@@ -30,7 +30,10 @@ export class create implements findByEmail, createDentist, findClinicById, findR
                     firstAccess: response.firstAccess,
                     phone: response.phone,
                     photo: response.photo,
-                    bio: response.bio
+                    bio: response.bio,
+                    active:response.active,
+                    desactive:response.desactive
+
                 })
                 return dentistAlreadyExist
             }
@@ -101,7 +104,8 @@ export class create implements findByEmail, createDentist, findClinicById, findR
                     firstAccess: response.firstAccess,
                     phone: response.phone,
                     photo: response.photo,
-                    bio: response.bio
+                    bio: response.bio,
+                    active:response.active
                 })
                 return newDentist
 

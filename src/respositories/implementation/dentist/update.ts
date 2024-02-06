@@ -11,12 +11,21 @@ interface body {
     name: string,
     password: string,
     email: string,
+    active: Date,
+    desactive: Date
+    doctorId: string
 }
 export class UpdateDentist implements updateDentist, findDentistById, findByEmail {
     async update(datas: body, doctorId: string): Promise<null> {
         if (datas.password) {
             const hashPassword = await bcrypt.hash(datas.password, 10)
             datas['password'] = hashPassword
+        }
+        if (datas.desactive) {
+            datas['desactive'] = new Date(datas.desactive)
+        }
+        if (datas.doctorId) {
+            delete datas.doctorId
         }
         try {
             await prisma.doctor.update({
@@ -25,12 +34,14 @@ export class UpdateDentist implements updateDentist, findDentistById, findByEmai
                 },
                 data: {
                     ...datas,
-                    firstAccess: false
+                    firstAccess: false,
+
                 }
             })
             return null
         } catch (error) {
-            let message = "Erro";
+            console.log(error)
+            let message = "Erro ao atualizar usuário";
             if (error instanceof ZodError) {
                 message = error.message
             }
@@ -66,7 +77,6 @@ export class UpdateDentist implements updateDentist, findDentistById, findByEmai
                     email
                 },
             })
-
             const founClinic = await prisma.clinic.findFirst({
                 where: {
                     email
@@ -76,7 +86,7 @@ export class UpdateDentist implements updateDentist, findDentistById, findByEmai
                 throw new Error("Informe um email diferente do anterior")
             }
 
-            return founDoctor 
+            return founDoctor
         } catch (error) {
             let message = "Erro ao efetuar alteração";
             if (error instanceof ZodError) {

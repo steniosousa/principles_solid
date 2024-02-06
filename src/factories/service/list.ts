@@ -2,9 +2,9 @@ import { ListServicesImplementation } from "../../respositories/implementation/s
 import { listServicesController } from "../../useCase/service/list/controller";
 import { listUseCase } from "../../useCase/service/list/useCase";
 
-export function ListServiceFactore(){
+export function ListServiceFactore() {
     const iImplementation = new ListServicesImplementation()
-    const iUseCase = new listUseCase(iImplementation)
+    const iUseCase = new listUseCase(iImplementation, iImplementation, iImplementation)
     const iController = new listServicesController(iUseCase)
     return iController
 }

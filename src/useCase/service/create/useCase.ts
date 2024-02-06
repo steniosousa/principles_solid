@@ -16,7 +16,7 @@ export class serviceUseCase {
         try {
             const { name, cost } = req.body.data
             const id = req.user.id
-            if(!name.toString() || !Number(cost)){
+            if (!name.toString() || !Number(cost)) {
                 throw new Error("Dados inválidos")
             }
             const verifyIfDoctorExist = await this.ifindDentistById.findById(id)
@@ -34,7 +34,7 @@ export class serviceUseCase {
                 name,
                 clinicId: verifyIfDoctorExist.clinicId
 
-            }, verifyIfDoctorExist.clinicId)
+            }, verifyIfDoctorExist.clinicId, id)
 
         } catch (error) {
             let errorMessage = "Failed to do something exceptional";

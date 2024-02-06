@@ -1,3 +1,4 @@
+import { ZodError } from "zod";
 import { Clinic } from "../../../entities/clinic";
 import { Dentist } from "../../../entities/dentist";
 import { findByCNPJ } from "../../contracts/clinic/findByCNPJ";
@@ -17,6 +18,9 @@ export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContrac
                     email
                 }
             })
+            if(reponseDentist.desactive){
+                throw new Error('Usuário desativado ')
+            }
             if (reponseDentist) {
                 const returNewAddress = new Dentist({
                     clinicId: reponseDentist.clinicId,
@@ -28,14 +32,20 @@ export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContrac
                     phone: reponseDentist.phone,
                     id: reponseDentist.id,
                     photo: reponseDentist.photo,
-                    bio: reponseDentist.bio
+                    bio: reponseDentist.bio,
+                    active:reponseDentist.active
                 })
                 return returNewAddress
             }
             return null
         }
         catch (error) {
-            throw new Error('Usuário não encontrado')
+            let message = "Usuário não encontrado";
+            if (error instanceof Error) {
+                console.log(error)
+                message = error.message
+            }
+            throw new Error(message)
         }
     }
 

@@ -1,13 +1,23 @@
 import { NextFunction, Request, Response } from 'express'
 import jwt from 'jsonwebtoken'
+import { prisma } from '../../respositories/prisma/prisma.service'
 
-export function AuthMiddleware(req: Request & { user: any }, res: Response, next: NextFunction) {
+export async function AuthMiddleware(req: Request & { user: any }, res: Response, next: NextFunction) {
     const keyJwtSecret = process.env.JWT_SECRET_TOKEN as string
     try {
         const response: any = jwt.verify(req.headers.authorization as string, keyJwtSecret)
-        if (!response.id) {
-            res.status(400).send('Chave de acesso expirada')
+        const user = await prisma.doctor.findFirst({
+            where: {
+                id: response.id
+            }
+        })
+        if(user.desactive){
+            res.status(403).send('Usuário desativado')
+            return
         }
+        if (!response.id ) {
+            throw new Error('Conta não autorizada')
+        } 
         req.user = response
         next()
     } catch (error) {

@@ -35,6 +35,8 @@ import { updateImageClinc } from './factories/clinic/updateImage'
 import { createVacationFactore } from './factories/vacation/createVacation'
 import { createVocationDto } from './useCase/vacation/create/dto'
 import { findVacationFactore } from './factories/vacation/findVacation'
+import { deleteVocationDto } from './useCase/vacation/delete/dto'
+import { deleteVacationFactore } from './factories/vacation/deleteVacation'
 
 const routes = Router()
 
@@ -68,6 +70,7 @@ const editService = UpdateService()
 
 const createVacation = createVacationFactore()
 const findVacation = findVacationFactore()
+const deleteVacation = deleteVacationFactore()
 routes.post('/login', schemaValidator(loginSchema), (req: Request, res: Response) => iLogin.execute(req, res))
 
 // routes for customer
@@ -98,13 +101,13 @@ routes.patch('/update/image/dentist', (req: any, res: Response, next: NextFuncti
 
 
 routes.post('/service/create', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => createService.execute(req, res))
-routes.get('/service/list', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(serviceListDTO), (req, res) => listService.execute(req, res))
+routes.get('/service/list', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => listService.execute(req, res))
 routes.post('/service/update', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(serviceUpdateDTO), (req, res) => editService.execute(req, res))
 
 
 routes.post('/vacation/create', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(createVocationDto), (req, res) => createVacation.execute(req, res))
-routes.get('/vacation/find', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(createVocationDto), (req, res) => findVacation.execute(req, res))
-
+routes.get('/vacation/find', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), (req, res) => findVacation.execute(req, res))
+routes.post('/vacation/', (req: any, res: Response, next: NextFunction) => AuthMiddleware(req, res, next), schemaValidator(deleteVocationDto), (req, res) => deleteVacation.execute(req, res))
 export { routes }
 
 

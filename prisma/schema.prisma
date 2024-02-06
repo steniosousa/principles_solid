@@ -63,16 +63,18 @@ model Address {
 }
 
 model Doctor {
-  id          String  @id @default(uuid())
+  id          String    @id @default(uuid())
   name        String
+  active      DateTime  @default(now())
+  desactive   DateTime?
   clinicId    String
   email       String
   password    String
   room        Int
   bio         String
-  phone       String  @default("")
-  firstAccess Boolean @default(true)
-  photo       String  @default("")
+  phone       String    @default("")
+  firstAccess Boolean   @default(true)
+  photo       String    @default("")
 
   clinic         Clinic          @relation(fields: [clinicId], references: [id])
   appointments   Appointment[]

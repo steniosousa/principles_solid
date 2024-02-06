@@ -11,6 +11,8 @@ export class Dentist {
     public firstAccess: boolean
     public bio: string = ''
     public phone: string = ''
+    public active: Date
+    public desactive?: Date
     constructor(props: Dentist, id?: string) {
         Object.assign(this, props)
         if (!id) {

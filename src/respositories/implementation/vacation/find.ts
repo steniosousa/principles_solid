@@ -10,14 +10,20 @@ export class findVacationImplementation implements findVacation {
             const findVacations = await prisma.vacation.findMany({
                 where: {
                     doctorId
+                },
+                include: {
+                    doctor: {
+                        select: {
+                            name: true, id: true
+                        }
+                    }
                 }
 
             })
-            console.log(findVacations)
             const vacations: any = findVacations
             return vacations
         } catch (error) {
-            let message = "Não foi possível criar férias"
+            let message = "Não foi possível encontrar agenda"
             if (error instanceof ZodError) {
                 message = error.message
             }

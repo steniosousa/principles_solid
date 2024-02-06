@@ -16,7 +16,6 @@ export class updateImageClinicController {
             res.status(200).send('Foto atualizada com sucesso')
 
         } catch (error: unknown) {
-            console.log(error)
             let message = "Falha ao salvar a imagem"
             if (error instanceof Error) {
                 message = error.message

@@ -10,7 +10,12 @@ export class loginController {
             const login = await this.loginUseCase.execute(password, email)
             res.status(200).send(login)
         } catch (error) {
-            res.status(400).send('Email ou senha inválidos')
+            let message = "Email ou senha inválidos"
+            if (error instanceof Error) {
+                console.log(error)
+                message = error.message
+            }
+            res.status(400).send(message)
         }
 
     }

@@ -1,4 +1,4 @@
-import {  Response } from "express";
+import { Response } from "express";
 import { UpdateDentistUseCase } from "./useCase";
 
 export class updateDentistController {
@@ -6,11 +6,13 @@ export class updateDentistController {
 
     async execute(req: any, res: Response) {
         try {
-            const updateDoctor = await this.iUseCase.execute(req.body, req.user.id)
+            const id = req.body.doctorId ? req.body.doctorId : req.user.id
+            console.log(req.body)
+            const updateDoctor = await this.iUseCase.execute(req.body, id)
             res.status(200).send(updateDoctor)
 
         } catch (error: unknown) {
-            let message = "Failed to save profissional"
+            let message = "Falha ao atualizar profissional"
             if (error instanceof Error) {
                 message = error.message
             }
