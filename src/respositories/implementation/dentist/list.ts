@@ -13,14 +13,12 @@ export class ListDentistImplementation implements listDentist {
       const professionals = await prisma.doctor.findMany({
         where: {
           clinicId: clinicId,
-          AND: {
-            active: { notIn: null }
-          }
         },
         select: {
           name: true,
           phone: true,
           photo: true,
+          desactive: true,
           doctorServices: {
             include: {
               service: true,

@@ -12,7 +12,6 @@ export class loginController {
         } catch (error) {
             let message = "Email ou senha inválidos"
             if (error instanceof Error) {
-                console.log(error)
                 message = error.message
             }
             res.status(400).send(message)

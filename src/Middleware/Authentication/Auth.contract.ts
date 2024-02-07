@@ -11,13 +11,23 @@ export async function AuthMiddleware(req: Request & { user: any }, res: Response
                 id: response.id
             }
         })
-        if(user.desactive){
+
+        const clinic = await prisma.clinic.findFirst({
+            where: {
+                id: response.id
+            }
+        })
+        if (user && user.desactive) {
             res.status(403).send('Usuário desativado')
             return
         }
-        if (!response.id ) {
+        if (clinic && !clinic.pay) {
+            res.status(406).send('Sem acesso')
+            return
+        }
+        if (!response.id) {
             throw new Error('Conta não autorizada')
-        } 
+        }
         req.user = response
         next()
     } catch (error) {

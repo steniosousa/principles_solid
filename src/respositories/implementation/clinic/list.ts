@@ -21,7 +21,9 @@ export class ListClinics implements List {
                 bio: clinic.bio,
                 email: clinic.email,
                 password: clinic.password,
-                photo: clinic.photo
+                photo: clinic.photo,
+                pay: clinic.pay
+
             }));
 
             return allClinics;

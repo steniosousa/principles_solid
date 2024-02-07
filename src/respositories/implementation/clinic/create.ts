@@ -47,7 +47,8 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                     password: addressAlreadyExist.password,
                     email: addressAlreadyExist.email,
                     bio: addressAlreadyExist.bio,
-                    photo: addressAlreadyExist.photo
+                    photo: addressAlreadyExist.photo,
+                    pay: addressAlreadyExist.pay
                 })
                 return returnClinic
             }
@@ -104,7 +105,8 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 password: hashPassword,
                 email: clinic.email,
                 bio: clinic.bio,
-                photo: clinic.photo
+                photo: clinic.photo,
+                pay: clinic.pay
             })
             const newClinicSave = await prisma.clinic.create({
                 data: {
@@ -127,7 +129,8 @@ export class ClinicCreateImplementation implements findAddress, clinicSave, find
                 password: newClinicSave.password,
                 email: newClinicSave.email,
                 bio: newClinicSave.bio,
-                photo: newClinicSave.photo
+                photo: newClinicSave.photo,
+                pay: newClinicSave.pay
             })
             return returnNewClinic
         } catch (error) {

@@ -39,6 +39,7 @@ model Clinic {
   id        String      @id @default(uuid())
   bio       String
   photo     String      @default("")
+  pay       Boolean     @default(false)
   name      String
   cnpj      String
   phone     String

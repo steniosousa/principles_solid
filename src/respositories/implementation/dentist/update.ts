@@ -12,7 +12,7 @@ interface body {
     password: string,
     email: string,
     active: Date,
-    desactive: Date
+    desactive: string
     doctorId: string
 }
 export class UpdateDentist implements updateDentist, findDentistById, findByEmail {
@@ -21,11 +21,12 @@ export class UpdateDentist implements updateDentist, findDentistById, findByEmai
             const hashPassword = await bcrypt.hash(datas.password, 10)
             datas['password'] = hashPassword
         }
-        if (datas.desactive) {
-            datas['desactive'] = new Date(datas.desactive)
-        }
         if (datas.doctorId) {
             delete datas.doctorId
+        }
+        let desactive;
+        if (datas.desactive == "smilify") {
+            desactive = null
         }
         try {
             await prisma.doctor.update({
@@ -35,12 +36,12 @@ export class UpdateDentist implements updateDentist, findDentistById, findByEmai
                 data: {
                     ...datas,
                     firstAccess: false,
+                    desactive
 
                 }
             })
             return null
         } catch (error) {
-            console.log(error)
             let message = "Erro ao atualizar usuário";
             if (error instanceof ZodError) {
                 message = error.message
@@ -56,7 +57,8 @@ export class UpdateDentist implements updateDentist, findDentistById, findByEmai
                     id
                 },
                 select: {
-                    firstAccess: true
+                    firstAccess: true,
+                    desactive: true
                 }
             })
 

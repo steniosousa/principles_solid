@@ -22,6 +22,8 @@ export class update implements findClinicById, updateClinic {
                 bio: response.bio,
                 email: response.email,
                 password: response.password,
+                pay: response.pay,
+
                 photo: response.photo
             })
             return clinicFound
@@ -58,7 +60,9 @@ export class update implements findClinicById, updateClinic {
                 bio: response.bio,
                 email: response.email,
                 password: response.password,
-                photo: response.photo
+                photo: response.photo,
+                pay: response.pay
+
             })
 
             return returAfterUpdate

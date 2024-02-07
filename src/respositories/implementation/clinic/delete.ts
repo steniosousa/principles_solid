@@ -20,7 +20,8 @@ export class deleteClinicImplementation implements findClinicById, deleteClinic 
                 email: search.email,
                 password: search.password,
                 bio: search.bio,
-                photo: search.photo
+                photo: search.photo,
+                pay:search.pay
             })
 
             return response

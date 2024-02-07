@@ -26,6 +26,11 @@ export class UpdateDentistUseCase {
             if (verifyFirstAccess.firstAccess && !body.password) {
                 throw new Error("Informe nova senha para validar alteração")
             }
+            
+            if (verifyFirstAccess.desactive) {
+                delete body['desactive']
+                body['desactive'] = "smilify"
+            }
             if (body.email) {
                 const emailAlredy = await this.ifindByEmail.findDentis(body.email)
                 if (emailAlredy) {

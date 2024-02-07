@@ -10,6 +10,7 @@ export class Clinic {
     public email: string = ''
     public bio: string = ''
     public photo: string = ''
+    public pay: boolean
 
     constructor(props: Clinic, id?: string) {
         Object.assign(this, props)

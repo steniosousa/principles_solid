@@ -18,7 +18,7 @@ export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContrac
                     email
                 }
             })
-            if(reponseDentist.desactive){
+            if (reponseDentist && reponseDentist.desactive) {
                 throw new Error('Usuário desativado ')
             }
             if (reponseDentist) {
@@ -33,7 +33,8 @@ export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContrac
                     id: reponseDentist.id,
                     photo: reponseDentist.photo,
                     bio: reponseDentist.bio,
-                    active:reponseDentist.active
+                    active: reponseDentist.active,
+                    desactive: reponseDentist.desactive
                 })
                 return returNewAddress
             }
@@ -42,7 +43,6 @@ export class LoginUserOrClinic implements findByEmail, LoginContract, JwtContrac
         catch (error) {
             let message = "Usuário não encontrado";
             if (error instanceof Error) {
-                console.log(error)
                 message = error.message
             }
             throw new Error(message)

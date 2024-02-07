@@ -4,7 +4,6 @@ import { prisma } from "../../prisma/prisma.service";
 
 export class deleteVacationImplementation implements deleteVacation {
     async delete(id: string): Promise<void> {
-        console.log(id, 'stenio')
         try {
             await prisma.vacation.delete({
                 where: {
